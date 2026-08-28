@@ -1,2 +1,2 @@
 # LIN_301
-My LIN 301 repository
+Hello world! This is my LIN 301 repository :3
