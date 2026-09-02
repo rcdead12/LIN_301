@@ -83,18 +83,49 @@ vandalia@t480s1:~/Documents/git_repos/computation_for_linguists/LIN_301/homework
 
     Run your script with `source setup.sh` and confirm it worked with `ls`.
 ``` bash
-
+vandalia@t480s1:~/Documents/git_repos/computation_for_linguists/LIN_301/homework/hw1 (main)$ touch setup.sh
+vandalia@t480s1:~/Documents/git_repos/computation_for_linguists/LIN_301/homework/hw1 (main)$ chmod +x setup.sh
+vandalia@t480s1:~/Documents/git_repos/computation_for_linguists/LIN_301/homework/hw1 (main)$ source setup.sh
+vandalia@t480s1:~/Documents/git_repos/computation_for_linguists/LIN_301/homework/hw1 (main)$ cd backup_check
+vandalia@t480s1:~/Documents/git_repos/computation_for_linguists/LIN_301/homework/hw1/backup_check (main)$ ls -l
+total 596
+-rw-r--r-- 1 vandalia vandalia 607606 Sep  2 11:12 holmes.txt
+[0.016s] --> [0]
 ```
 
 **Question:** What's the difference between `rmdir` and `rm -r`? Why did you need `rm -r` in step 7 and not `rmdir`?
-
+* rmdir only removes the directory itself,  while rm -r removes a given file or directory and all of its contents recursively (hence the option -r). I needed rm -r in step 7 because the contents were not of importance or relevance and could be deleted without any issues.
 ------------------------------------------------------------------------
 
 ## Part 2 — Counting & Searching
 
 9.  Run `wc`, `wc -l`, and `wc -w` on `holmes.txt`. Record all three outputs.
+``` bash
+vandalia@t480s1:~/Documents/git_repos/computation_for_linguists/LIN_301/homework/hw1 (main)$ wc holmes.txt
+ 12310 107558 607606 holmes.txt
+[0.026s] --> [0]
+vandalia@t480s1:~/Documents/git_repos/computation_for_linguists/LIN_301/homework/hw1 (main)$ wc -l holmes.txt
+12310 holmes.txt
+[0.039s] --> [0]
+vandalia@t480s1:~/Documents/git_repos/computation_for_linguists/LIN_301/homework/hw1 (main)$ wc -w holmes.txt
+107558 holmes.txt
+[0.018s] --> [0]
+```
+
 10. Use `grep` to find every line containing the name **"Watson"**. Then pipe that into `wc -l` to get a single count of how many lines mention him.
+``` bash
+vandalia@t480s1:~/Documents/git_repos/computation_for_linguists/LIN_301/homework/hw1 (main)$ grep "Watson" holmes.txt | wc -l
+81
+[0.036s] --> [0]
+```
+
 11. Do the same for **"Holmes"**. Which name appears on more lines?
+``` bash
+vandalia@t480s1:~/Documents/git_repos/computation_for_linguists/LIN_301/homework/hw1 (main)$ grep "Holmes" holmes.txt | wc -l
+460
+[0.011s] --> [0]
+```
+"Holmes" appears on more lines than "Watson".
 
 ------------------------------------------------------------------------
 
@@ -103,10 +134,29 @@ vandalia@t480s1:~/Documents/git_repos/computation_for_linguists/LIN_301/homework
 Using `grep -E` on `holmes.txt`, find each of the following. For each one, write the command you used *and* the answer/result.
 
 1.  Every instance where a word begins with "Holmes" or "Watson."
+``` bash
+
+```
+
 2.  All five-letter words in the file.
+``` bash
+
+```
+
 3.  All lines that end in a question mark (remember `?` is a special character in regex — you'll need to escape it with `\`).
+``` bash
+
+```
+
 4.  All instances of a letter repeated twice in a row (like "ee" in "sleep" or "ss" in "glass"), using a backreference.
+``` bash
+
+```
+
 5.  The total number of times "he" or "He" or "she" or "She" appears as its own word (not buried inside a longer word like "the" or "shelf").
+``` bash
+
+```
 
 ------------------------------------------------------------------------
 
