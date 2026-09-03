@@ -1,0 +1,284 @@
+---
+title: "Computation for Linguists"
+subtitle: "Learning the Command Line: More Bash Commands; File Extensions"
+date: "September 2, 2026"
+author: "Dr. Andrew M. Byrd"
+format:
+  revealjs:
+    css: header_shrink.css
+    theme: beige
+    slide-number: true
+    center: true
+    toc: true
+    toc-title: "Plan for the Day"
+    toc-depth: 1
+editor: visual
+---
+
+# Schedule Modified
+
+## Command Prompt, Homework
+
+- Let's look at Canvas
+
+# Review
+
+- What did we learn last time about the Terminal?
+
+## Review of Terminal Commands
+
+- `pwd`
+- `ls`
+- `mkdir`
+- `rmdir`
+- `touch`
+- `curl -o file.txt`
+- `cd`
+
+## Review Activity
+
+Analyze the following block of code, and describe what happens in each line.
+
+``` bash
+$ pwd
+~/LIN_301/classwork/day_4
+$ ls
+$ touch test.txt
+$ mkdir folder_1
+$ mv test.txt folder_1
+$ cd folder_1
+$ ls
+$ cd ..
+$ rm -r folder_1
+```
+
+## Setting Up for Today
+
+- Using `bash` commands. VSCode's integrated terminal opens in your `computation_4_linguists` folder, so `cd` into `LIN_301` first:
+
+  ``` bash
+  cd LIN_301
+  mkdir -p classwork/day_5
+  cp ../301_2026/slides/2_command_prompt/5_file_extensions_grep.qmd classwork/day_5/
+  cd classwork/day_5
+  ```
+
+- Open the `.qmd` file in VSCode
+
+## Activity
+
+- Within your `LIN_301/classwork/day_5` folder:
+  - Create a file called `activity.txt`
+  - Create the following nested folders: `folder_1` \> `folder_2` \> `folder_3`
+  - Move `activity.txt` into `folder_3`
+- You can *only* use the integrated Terminal in VSCode!
+  - Use `pwd` and `ls` as your guide
+
+# A Couple More Tricks
+
+## `rm -r`
+
+- Let's learn one more bash command
+
+``` bash
+rm -r folder_1
+```
+
+- What happens?
+
+## You bastard!
+
+- Don't worry! Type the following code:
+
+``` bash
+touch script.sh 
+```
+
+## Bringing it Back
+
+- Copy and paste this **whole block** (using right click) into the Terminal — it already ends with `EOF`, so one paste does the whole thing:
+
+``` bash
+cat > script.sh <<'EOF'      # write everything below into script.sh, until a line that's just EOF
+#!/bin/bash                 # tells the system to run this file with bash
+echo "This is my first script."                     # print a message
+curl -o term_comm.txt https://winjapati.github.io/courses/301/term_comm.txt  # download the file
+mkdir folder_1                                      # make a new folder
+echo term_comm.txt                                  # print the filename
+mv term_comm.txt folder_1                           # move it into folder_1
+EOF
+```
+
+- Open your folder in VSCode and look inside `script.sh`, what did you do?
+
+## OMG
+
+- Type:
+
+``` bash
+source script.sh
+```
+
+## `cat`
+
+- You've now got `script.sh`, and (thanks to the script) `folder_1/term_comm.txt` — let's actually look inside them
+- `cat` prints a file's entire contents to the screen at once — best for short files
+
+``` bash
+cat script.sh
+```
+
+## `less`
+
+- For longer files, dumping everything with `cat` gets hard to read — `less` opens it as a scrollable page instead
+
+``` bash
+less folder_1/term_comm.txt
+```
+
+- Use the up/down arrows to scroll, spacebar to jump down a page, and `q` to quit back to the prompt
+
+## On Your Own
+
+- Using only the commands you know — `ls`, `mkdir`, `rmdir`, `touch`, `mv`, `curl`, `rm -r`, and writing/sourcing a `.sh` script
+- Within your `LIN_301/classwork/day_5` folder:
+  1.  Create a new folder called `day5_files`
+  2.  Move today's slides inside `day5_files`
+  3.  Move `folder_1` inside `day5_files`
+  4.  Write and run a script called `check.sh` that lists everything inside `day5_files` when you `source` it
+
+# File Extensions
+
+## File Extensions
+
+When programming, there are lots of different file types:
+
+1)  files to store data in:
+
+- `txt` - a (raw) text file
+- `html` - an html file, to be viewed in a web browser
+- `xml` - an Extensible Markup Language file; used to store structured data
+- `md` - a Markdown file (can be converted into `html`); simple way to format text, similar to html
+
+## File Extensions
+
+2)  files you run/execute:
+
+- `tex` - a LaTeX file; compiled into `pdf`
+- `py` - a Python script; run by a Python interpreter
+- `r` - an R script; run by an R interpreter
+
+## Installing `pandoc`
+
+- `pandoc` is a free, open-source tool that converts between document formats — plain text, Markdown, HTML, Word, and more
+
+## Installing `pandoc`
+
+- To install it:
+  - **Windows**: download the installer from <https://pandoc.org/installing.html>, run it, then close and reopen VSCode
+  - **Mac**: open Terminal and run `brew install pandoc` (requires [Homebrew](https://brew.sh)), or download the installer from the same page
+
+## Installing `pandoc`
+
+- Confirm it worked:
+
+``` bash
+pandoc --version
+```
+
+- Don't want to install it right now? No problem — you can just follow along as we go
+
+## Converting Files
+
+All of these can be easily converted, as they're all just text!
+
+``` bash
+# start with a md file
+echo "# Hello World" > test.md
+echo "This is *italic* and **bold**." >> test.md
+
+# convert markdown → html
+pandoc test.md -o test.html
+
+# convert html → plain text
+pandoc test.html -t plain -o test.txt
+```
+
+## Converting to `docx` and `odt`
+
+- Let's create a `.sh` file called `convert.sh`
+- We'll paste in this code:
+
+``` bash
+# 1) Make a tiny Markdown source
+echo "# Hello!" > demo.md
+echo "This is a *line* and **text**." >> demo.md
+
+# 2) Convert MD → HTML
+pandoc demo.md -o demo.html
+
+# 3) Convert MD → DOCX and → ODT
+pandoc demo.md -o demo.docx
+pandoc demo.md -o demo.odt
+```
+
+- Run the code:
+
+``` bash
+source convert.sh
+```
+
+## Identifying What's Inside: `file`
+
+- Let's see what the Terminal thinks is inside these files:
+
+``` bash
+file demo.html demo.docx demo.odt
+```
+
+## What are these things?
+
+- Let's use a command `head`, to print out what's inside the file itself.
+
+``` bash
+head -n 20 demo.md
+head -n 20 demo.html
+head -n 20 demo.odt
+head -n 20 demo.docx
+```
+
+## What are these things?
+
+- Word & Google Docs aren't text formats at all, they're zip files!
+
+``` bash
+unzip -l demo.docx | head
+unzip -l demo.odt  | head
+```
+
+- Contrast that with:
+
+``` bash
+unzip -l demo.md | head
+unzip -l demo.html | head
+```
+
+## Flattening Files
+
+- We can use Pandoc to flatten all three to plain text:
+
+``` bash
+pandoc demo.html -t plain -o from_html.txt
+pandoc demo.docx -t plain -o from_docx.txt
+pandoc demo.odt  -t plain -o from_odt.txt
+```
+
+## File Extensions
+
+- How much data does each file type take up?
+
+``` bash
+ls -lh demo.* from_*.txt
+```
+
+## The Takeaway?
