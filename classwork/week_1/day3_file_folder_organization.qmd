@@ -19,8 +19,8 @@ editor: visual
 
 ## Review from Day 2
 
--   We set up VSCode + Git, confirmed our SSH connection, cloned the shared course repo, and created + cloned our own personal repos
--   We stopped right after cloning our own repo alongside the course repo — we haven't tested the full pipeline yet, so that's first up today
+- We set up VSCode + Git, confirmed our SSH connection, cloned the shared course repo, and created + cloned our own personal repos
+- We stopped right after cloning our own repo alongside the course repo — we haven't tested the full pipeline yet, so that's first up today
 
 # Finishing Up From Day 2
 
@@ -32,8 +32,8 @@ computation_4_linguists/
 └── LIN_301/       (your repo — where you push your work)
 ```
 
--   Open `computation_4_linguists` in VSCode (**File → Open Folder**) and you'll see both repos in the Explorer at once
--   This is the folder you'll open every class from now on
+- Open `computation_4_linguists` in VSCode (**File → Open Folder**) and you'll see both repos in the Explorer at once
+- This is the folder you'll open every class from now on
 
 # Testing the Whole Pipeline
 
@@ -53,9 +53,9 @@ Committing only saves the change *locally*. You must also click **Sync Changes**
 
 ## Verify It Worked
 
--   Go to your repo on github.com
--   Refresh the page
--   You should see your edited `README.md` with your new sentence
+- Go to your repo on github.com
+- Refresh the page
+- You should see your edited `README.md` with your new sentence
 
 # Git Practice
 
@@ -80,59 +80,59 @@ Goal: see a conflict happen on purpose, in a safe spot, before it happens to you
 
 ## Activity: Customize Your Setup
 
--   Open Settings: gear icon (bottom-left) → **Settings**, or `Ctrl+,` / `Cmd+,`
--   Try at least two of the following:
-    -   **Color Theme** — `Ctrl+K Ctrl+T` / `Cmd+K Cmd+T`, browse and pick one
-    -   **Font Size** — search "font size" in Settings, adjust `Editor: Font Size`
-    -   **Auto Save** — File → Auto Save (turn it on — never lose work to a forgotten `Ctrl+S` again)
-    -   **Icon Theme** — Command Palette → "File Icon Theme," try a different set
--   At home: you can browse the Extensions Marketplace for something fun (a theme pack, an icon pack) and install it
-    -   **"Material Icon Theme"** — a more detailed icon set for the Explorer
-    -   **"One Dark Pro"** — a popular color theme
-    -   **"vscode-pets"** — a small pet that lives in your editor (yes, really)
+- Open Settings: gear icon (bottom-left) → **Settings**, or `Ctrl+,` / `Cmd+,`
+- Try at least two of the following:
+  - **Color Theme** — `Ctrl+K Ctrl+T` / `Cmd+K Cmd+T`, browse and pick one
+  - **Font Size** — search "font size" in Settings, adjust `Editor: Font Size`
+  - **Auto Save** — File → Auto Save (turn it on — never lose work to a forgotten `Ctrl+S` again)
+  - **Icon Theme** — Command Palette → "File Icon Theme," try a different set
+- At home: you can browse the Extensions Marketplace for something fun (a theme pack, an icon pack) and install it
+  - **"Material Icon Theme"** — a more detailed icon set for the Explorer
+  - **"One Dark Pro"** — a popular color theme
+  - **"vscode-pets"** — a small pet that lives in your editor (yes, really)
 
 # Why Good File Organization Matters
 
 ## A Preview of What's Coming
 
--   In a few weeks: LaTeX documents need images, `.bib` files, and style files to be in the *right* place, or they won't compile
--   Even sooner: Python scripts need to find data files, or they'll throw an error
--   Git tracks the exact structure of your project, folder by folder
--   A messy project = hours of your life spent hunting for files instead of doing linguistics
+- In a few weeks: LaTeX documents need images, `.bib` files, and style files to be in the *right* place, or they won't compile
+- Even sooner: Python scripts need to find data files, or they'll throw an error
+- Git tracks the exact structure of your project, folder by folder
+- A messy project = hours of your life spent hunting for files instead of doing linguistics
 
 ## The Bad Old Way
 
--   `final_paper_v2_ACTUALFINAL_reallyfinal.docx`, living somewhere in Downloads
--   `Screenshot 2026-08-28 at 3.42.17 PM.png`
--   Everything just dumped on the Desktop
--   Sound familiar?
+- `final_paper_v2_ACTUALFINAL_reallyfinal.docx`, living somewhere in Downloads
+- `Screenshot 2026-08-28 at 3.42.17 PM.png`
+- Everything just dumped on the Desktop
+- Sound familiar?
 
 # Principles of Good File Organization
 
 ## Naming Conventions: No Spaces
 
--   `my data.csv` → the command line and Python may choke on this
--   `my_data.csv` or `my-data.csv` → safe everywhere
--   We'll see exactly why next class, but get in the habit now
+- `my data.csv` → the command line and Python may choke on this
+- `my_data.csv` or `my-data.csv` → safe everywhere
+- We'll see exactly why next class, but get in the habit now
 
 ## Naming Conventions: Case & Clarity
 
--   Prefer lowercase — avoids Mac vs. Windows vs. Linux case-sensitivity headaches
--   Be descriptive, not generic:
-    -   ~~`data1.csv`~~ → `jfk_speech_tokens.csv`
-    -   ~~`hw.qmd`~~ → `hw3_beginning_python.qmd`
--   Use ISO dates (`YYYY-MM-DD`) if a filename needs one — they sort correctly
+- Prefer lowercase — avoids Mac vs. Windows vs. Linux case-sensitivity headaches
+- Be descriptive, not generic:
+  - ~~`data1.csv`~~ → `jfk_speech_tokens.csv`
+  - ~~`hw.qmd`~~ → `hw3_beginning_python.qmd`
+- Use ISO dates (`YYYY-MM-DD`) if a filename needs one — they sort correctly
 
 ## Version Numbers vs. Git
 
--   Old habit: `paper_v1.docx`, `paper_v2.docx`, `paper_FINAL.docx`, `paper_FINAL_v2.docx`
--   New habit: **one file**, `paper.qmd` — and let **Git** track every version for you
--   This is exactly what you set up today. You don't need "v2" in a filename ever again.
+- Old habit: `paper_v1.docx`, `paper_v2.docx`, `paper_FINAL.docx`, `paper_FINAL_v2.docx`
+- New habit: **one file**, `paper.qmd` — and let **Git** track every version for you
+- This is exactly what you set up today. You don't need "v2" in a filename ever again.
 
 ## Folder Hierarchy
 
--   Don't dump every file into one giant folder
--   Group by purpose:
+- Don't dump every file into one giant folder
+- Group by purpose:
 
 ```         
 LIN_301/
@@ -142,38 +142,45 @@ LIN_301/
 └── README.md
 ```
 
--   Don't go too deep either — 2–3 levels is usually plenty. If you need a map to find a file, it's too deep.
+- Don't go too deep either — 2–3 levels is usually plenty. If you need a map to find a file, it's too deep.
 
 ## README Files
 
--   Every good project folder has a `README.md` at the top
--   It answers: what is this project? how is it organized? how do I use it?
--   You already have one — set up in your Git repo!
+- Every good project folder has a `README.md` at the top
+- It answers: what is this project? how is it organized? how do I use it?
+- You already have one — set up in your Git repo!
 
 # A Real Example
 
 ## Look at the Course Repo
 
--   Open `301_2026/` (inside your `computation_4_linguists` folder) in VSCode's Explorer panel
--   Two top-level folders so far: `slides/` and `activities/` — even this early, materials are split by type, not all dumped together
--   Inside `slides/`, notice the naming pattern: numbered, in teaching order, short description
+- Open `301_2026/` (inside your `computation_4_linguists` folder) in VSCode's Explorer panel
+- Two top-level folders so far: `slides/` and `activities/` — even this early, materials are split by type, not all dumped together
+- Inside `slides/`, notice the naming pattern: numbered, in teaching order, short description
 
 # Activity
 
 ## Activity 1: Set Up Your Own Structure
 
--   In your `LIN_301` repo, using VSCode's Explorer panel (right-click → **New Folder**), create:
-    -   `homework/`
-    -   `classwork/`
-    -   `data/`
--   Git only tracks **files**, not empty folders — add a small `README.md` inside each one (a sentence on what goes there) so the folder actually has something to commit
--   Copy today's slide file into `classwork/`, renaming it to mark the day:
-    ``` bash
-    cp ~/301_2026/slides/1_setup_vscode_git/3_file_folder_organization.qmd ./classwork/day3_file_folder_organization.qmd
-    ```
-    Do this again after each class for the rest of the semester — `classwork/` becomes a running archive, named `dayN_topic.qmd`
--   We'll use this same structure for the rest of the semester — every homework goes in `homework/`, etc.
--   Commit and push this change — README files and today's copied slide included — before you leave (practice from today!)
+- In your `LIN_301` repo, using VSCode's Explorer panel (right-click → **New Folder**), create:
+
+  - `homework/`
+  - `classwork/`
+  - `data/`
+
+- Git only tracks **files**, not empty folders — add a small `README.md` inside each one (a sentence on what goes there) so the folder actually has something to commit
+
+- Copy today's slide file into `classwork/`, renaming it to mark the day:
+
+  ``` bash
+  cp ~/301_2026/slides/1_setup_vscode_git/3_file_folder_organization.qmd ./classwork/day3_file_folder_organization.qmd
+  ```
+
+  Do this again after each class for the rest of the semester — `classwork/` becomes a running archive, named `dayN_topic.qmd`
+
+- We'll use this same structure for the rest of the semester — every homework goes in `homework/`, etc.
+
+- Commit and push this change — README files and today's copied slide included — before you leave (practice from today!)
 
 ## Activity 2: Organize a Messy Project
 
@@ -187,10 +194,10 @@ LIN_301/
 
 ## Big Takeaways
 
--   Good naming and structure isn't pedantic — it prevents real bugs later in the semester
--   Consistency matters more than any single "correct" system
--   Git + a clean structure means you can always find — and recover — your work
+- Good naming and structure isn't pedantic — it prevents real bugs later in the semester
+- Consistency matters more than any single "correct" system
+- Git + a clean structure means you can always find — and recover — your work
 
 ## Next Time
 
--   Learning the Command Line: navigating, creating, and moving files from the terminal
+- Learning the Command Line: navigating, creating, and moving files from the terminal
