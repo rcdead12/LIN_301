@@ -1,4 +1,4 @@
-SNACK_BUDGET = 20       #uppercase = fixed variable
+SNACK_BUDGET = 20       #uppercase = constant
 
 popcorn_budget = 8
 candy_budget = 3
