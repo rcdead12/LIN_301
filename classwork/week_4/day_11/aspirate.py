@@ -1,8 +1,10 @@
-word = "pin"
+word = input("Enter a word, any word: ")
+
 starts_p = word[0] == "p"
 starts_t = word[0] == "t"
 starts_k = word[0] == "k"
-aspirated = (starts_p == True) or (starts_t == True) or (starts_k == True)
 
-print(word)
-print(aspirated)
+aspirated = starts_p or starts_t or starts_k
+
+print("Word:", word)
+print("Aspirated?", aspirated)
