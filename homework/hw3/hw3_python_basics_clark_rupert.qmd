@@ -1,0 +1,62 @@
+```{python}
+books = 24
+war_years = 10
+journey_years = 10
+
+total_years_away = war_years + journey_years
+print(total_years_away)
+
+books_per_week = books // 7
+leftover_books = books % 7
+print(books_per_week)
+print(leftover_books)
+
+print(type(books))
+print(type(total_years_away))
+print(type(books_per_week))
+
+
+hero = "Odysseus"
+epithet = "man of a great journey"
+print(hero + " " + epithet)
+print(hero, epithet)
+homer_quote = "\"the man of twists and turns.\""
+
+
+years_match = war_years == journey_years
+print(years_match)
+book_number = 3
+is_first_book = book_number == 1
+is_last_book = book_number == 24
+is_bookend = is_first_book or is_last_book
+print(book_number, is_bookend)
+
+
+book_number = 12
+my_guess = "Odysseus will encounter the sirens and resist their song."
+is_double_digit = book_number >= 10
+print(book_number)
+print(my_guess)
+print(is_double_digit)
+print(type(book_number))
+print(type(my_guess))
+print(type(is_double_digit))
+```
+
+```{python}
+with open("odyssey.txt", encoding="utf-8") as f:
+    text = f.read()
+words = text.split()
+print(len(words))
+print(words[0:20])
+print(words[149:158])
+
+unique_words = set(words)
+print(len(unique_words))
+
+ttr = len(unique_words) / len(words)
+print(ttr)
+## ADD NOTE HERE
+
+
+```
