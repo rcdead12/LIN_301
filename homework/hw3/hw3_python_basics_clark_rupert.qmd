@@ -1,4 +1,5 @@
 ```{python}
+print("PART 1")
 books = 24
 war_years = 10
 journey_years = 10
@@ -44,6 +45,7 @@ print(type(is_double_digit))
 ```
 
 ```{python}
+print("\nPART 2")
 with open("odyssey.txt", encoding="utf-8") as f:
     text = f.read()
 words = text.split()
@@ -56,7 +58,30 @@ print(len(unique_words))
 
 ttr = len(unique_words) / len(words)
 print(ttr)
-## ADD NOTE HERE
+print("The TTR for the Odyssey is lower than for the other texts. It is likely that TTR decreases as the length of a text increases as certain grammatical structures and common words are used much more often the more is written in total.")
+
+print("Odysseus count: ", text.count("Odysseus"))
+position = text.find("Odysseus")
+print(text[position - 150 : position + 150])
+
+"Ulysses" in text
+print("Ulysses count: ", text.count("Ulysses"))
 
 
+character_counts = {
+    "Ulysses": text.count("Ulysses"),
+    "Penelope": text.count("Penelope"),
+    "Telemachus": text.count("Telemachus"),
+    "Minerva": text.count("Minerva")
+}
+print(character_counts)
+print("The name Ulysses occurs the most often in the text of the Odyssey.")
+
+character_counts.update({"Achilles": text.count("Achilles")})
+print(character_counts)
+```
+
+```{python}
+print("\nPART 3")
+print("One thing that surprised me about working with a full downloaded text compared to short lists like in class is that it actually takes a moment for the computer to process the text, unlike the instant feedback that occurs with short texts. The Project Gutenburg license at the start and end is likely insignificant to the overall data of the massive text that is the Odyssey. I believe this because the license is not very long, and the full text of the Odyssey is absolutely massive in comparison. Dict felt the most natural for character-counting because it is unordered data, only a label and corresponding data, when sorting the characters by any specific means would likely not be useful")
 ```
