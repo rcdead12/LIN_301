@@ -1,0 +1,17 @@
+## 1. Dataset Description
+The dataset I will be analyzing is a variety of songs the Grateful Dead played live across various eras of the band's existence. I plan to include a roughly equal number of Bobby and Jerry songs. The whitegum.com Grateful Dead Lyric and Song Finder (https://www.whitegum.com/intro.htm) is likely the best source for the data needed for this. The data on the site is in htm format, and I will convert it to plain text with pandoc.
+
+## 2. Rationale
+I chose this dataset because I love the Grateful Dead very much. I find the vast amount of time that the band played for fascinating and the variety of their music notable.
+
+## 3. Type of Analysis
+The types of analysis I plan to use from the table in project1_dataset_and_analysis.qmd are frequency & vocabulary and comparison. 
+
+## 4. Preliminary Questions
+I plan to compare the word count and TTR of covers vs. original songs, Jerry vs. Bobby songs, songs from different writers (Hunter vs. Barlow), avg. song length, and eras of the dead (grouped by keyboard player when song came out). Some questions I have are:
+1. Do covers have a higher lyric density than original songs? Do original songs have a higher TTR than covers?
+2. Do songs from the early (Pigpen) era of the Dead have lower word density than other eras?
+3. Do Jerry songs have a higher TTR than Bobby songs?
+4. Do songs written by Hunter have a higher word density than songs written by Barlow?
+
+## 5. A Look at the Data
