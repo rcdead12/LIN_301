@@ -9,9 +9,15 @@ The types of analysis I plan to use from the table in project1_dataset_and_analy
 
 ## 4. Preliminary Questions
 I plan to compare the word count and TTR of covers vs. original songs, Jerry vs. Bobby songs, songs from different writers (Hunter vs. Barlow), avg. song length, and eras of the dead (grouped by keyboard player when song came out). Some questions I have are:
-1. Do covers have a higher lyric density than original songs? Do original songs have a higher TTR than covers?
-2. Do songs from the early (Pigpen) era of the Dead have lower word density than other eras?
+1. Do original songs have a higher TTR than covers?
+2. Do songs from the early (Pigpen) era of the Dead have lower TTR than other eras?
 3. Do Jerry songs have a higher TTR than Bobby songs?
-4. Do songs written by Hunter have a higher word density than songs written by Barlow?
 
 ## 5. A Look at the Data
+``` markdown
+Look for a while at the China Cat Sunflower
+proud-walking jingle in the midnight sun
+Copper-dome bodhi drip a silver kimono
+like a crazy-quilt star gown
+through a dream night wind
+```
