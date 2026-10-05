@@ -1,0 +1,3 @@
+Song Title / Singer: J (jerry), B (bobby) / O (original), C (cover) / Era: P (pigpen), K (keith), BR (brent) / 5 random song lengths from live in sec (listed with ','; optional) / song length avg (optional)
+
+China Cat Sunflower / J / O / P / 366,354,
