@@ -55,7 +55,7 @@ You will create **one** Quarto document named `hw4_detective_gutenberg_lastname_
 
 **Goal:** find measurable differences between your two authors' styles.
 
--   Report each book's rate of **-ly** words per 1,000 words, and look at the actual list — are they all adverbs, or does something else sneak in?
+-   Report each book's rate of **-ly** words per 1,000 words, and look at the actual list — are they  all adverbs, or does something else sneak in?
 -   Pick **three more affixes** of your own choosing and report the per-1,000-word rate of each, for both books.
 -   Using your header-free lines from Part 1, report what percentage of each book's lines contain dialogue, however your book happens to mark it.
 -   Report each book's **10 most common content words** (after removing stopwords), and say what they suggest about each book's characters, setting, or themes.

@@ -37,7 +37,6 @@ except FileNotFoundError:
 import re
 from collections import Counter
 import matplotlib.pyplot as plt
-import urllib.request
 
 stopwords = ["the", "to", "and", "of", "a", "her", "i", "in", "was", "it",
              "she", "he", "be", "that", "you", "not", "had", "as", "his", "for",
@@ -70,15 +69,6 @@ don_text = "".join(don_lines)
 don_list = re.split(r"[\W]+", don_text.lower())    # reformats words to lowercase
 don_list = [w for w in don_list if w != ""]
 
-don_ttr = len(set(don_list)) / len(don_list)    # calculates ttr
-
-don_ttr_10000 = len(set(don_list[:10000])) / len(don_list[:10000])  # calculates ttr for first 10k words
-
-don_wd_len_total = 0
-for w in don_list:      # calculates avg word length
-    don_wd_len_total += len(w)
-don_avg_word_len = don_wd_len_total / len(don_list)
-
 # Setup for Oedipus King of Thebes
 try:
     with open("../../data/gutenberg/oedipus.txt", "r", encoding="utf-8") as f:
@@ -100,6 +90,7 @@ oed_text = "".join(oed_lines)
 
 oed_list = re.split(r"[\W]+", oed_text.lower())    # reformats words to lowercase
 oed_list = [w for w in oed_list if w != ""]
+
 
 
 # CALCULATING DESIRED VARIABLES
@@ -159,10 +150,10 @@ print("Some words that do not end in these suffixes but rather happen to end in 
 
 
 # % of books lines containing dialogue
-oed_dialogue_lines = [line for line in oed_lines if "\"" in line] # puts all lines containing a quotation mark into one list
+oed_dialogue_lines = [line for line in oed_lines if '"' in line] # puts all lines containing a quotation mark into one list
 oed_dialogue_percent = len(oed_dialogue_lines) / len(oed_lines) * 100
 
-don_dialogue_lines = [line for line in don_lines if "\"" in line]
+don_dialogue_lines = [line for line in don_lines if '“' in line or '”' in line]
 don_dialogue_percent = len(don_dialogue_lines) / len(don_lines) * 100
 
 print("Percent of lines in Oedipus King of Thebes containing dialogue:", oed_dialogue_percent)
@@ -203,8 +194,9 @@ plt.savefig("oed_zipf.png")
 plt.show()
 ```
 
-Part 5
+### Part 5
 Don Quixote uses slightly more varied language while Oedipus King of Thebes is not so. Don Quixote also focuses far far more on the main character, Don Quixote, himself, while Oedipus King of Thebes is slightly more external with other subjects appearing in the top 10 content words of the text. The most useful counter was the TTR for the total book length, and the least useful was the TTR for the first 10,000 words. If I were given one counter and was asked to figure out which book was which based on it, I would choose the top 10 words because it includes the name of the main character in each book.
 
 
-Part 6
+### Part 6
+The biggest difference between doing this assignment in class and completing it for homework is the complexity of it, having to come up with solutions for issues on my own rather than being guided through it. Of everything I found, the most surprising result was that the TTR for the first 10,000 words of Don Quixote and and Oedipus King of Thebes were almost the same. I also found it surprising that Don Quixote had a much higher percentage of lines containing dialogue than Oedipus King of Thebes. I tried to not use AI for this assignment, but I did use it one time to figure out an issue in my code. When I was searching for lines containing a quotation mark in Don Quixote, the code mistakenly identified every single line as containing one, and I could not figure out why. I used AI to look at my code and it told me that the string `don_dialogue_lines = [line for line in don_lines if '“' or '”' in line]` was returning every line as true because in python, any non-empty string is returned as true. My code was parsed as `if '“'`, which always returns true, `or '”' in line`. To fix it, I changed the syntax to `don_dialogue_lines = [line for line in don_lines if '“' in line or '”' in line]`, as suggested by Gemini, which worked like a charm.
