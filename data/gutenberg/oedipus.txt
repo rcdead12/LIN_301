@@ -17,7 +17,7 @@ Translator: Gilbert Murray
 
         
 Release date: December 31, 2008 [eBook #27673]
-                Most recently updated: January 4, 2021
+                Most recently updated: October 9, 2026
 
 Language: English
 
@@ -28,18 +28,6 @@ Credits: Produced by Sigal Alon, Turgut Dincer, R. Cedron and the
 
 
 *** START OF THE PROJECT GUTENBERG EBOOK OEDIPUS KING OF THEBES ***
-
-
-
-
-Produced by Sigal Alon, Turgut Dincer, R. Cedron and the
-Online Distributed Proofreading Team at https://www.pgdp.net
-
-
-
-
-
-
 
 
 
@@ -98,7 +86,7 @@ Mythologists tell us that Oedipus was originally a daemon haunting Mount
 Kithairon, and Jocasta a form of that Earth-Mother who, as Aeschylus
 puts it, "bringeth all things to being, and when she hath reared them
 receiveth again their seed into her body" (_Choephori_, 127: cf.
-Crusius, _Beitraege z. Gr. Myth_, 21). That stage of the story lies very
+Crusius, _Beiträge z. Gr. Myth_, 21). That stage of the story lies very
 far behind the consciousness of Sophocles. But there does cling about
 both his hero and his heroine a great deal of very primitive atmosphere.
 There are traces in Oedipus of the pre-hellenic Medicine King, the
@@ -195,7 +183,7 @@ relation to Oedipus both the mother's protecting love and the mother's
 authority. As for her "impiety," of which the old commentaries used to
 speak with much disapproval, the essential fact in her life is that both
 her innocence and her happiness have, as she believes, been poisoned by
-the craft of priests. She and Laius both "believed a bad oracle": her
+the craft of priests. She and Laïus both "believed a bad oracle": her
 terror and her love for her husband made her consent to an infamous act
 of cruelty to her own child, an act of which the thought sickens her
 still, and about which she cannot, when she tries, speak the whole
@@ -270,7 +258,7 @@ G. M.
  OEDIPUS, _supposed son of Polybus, King of Corinth; now elected King of
    Thebes._
 
- JOCASTA, _Queen of Thebes; widow of Laius, the late King, and now wife
+ JOCASTA, _Queen of Thebes; widow of Laïus, the late King, and now wife
    to Oedipus._
 
  CREON, _a Prince of Thebes, brother to Jocasta._
@@ -281,7 +269,7 @@ G. M.
 
  A STRANGER _from Corinth._
 
- A SHEPHERD _of King Laius._
+ A SHEPHERD _of King Laïus._
 
  A MESSENGER _from the Palace._
 
@@ -292,19 +280,19 @@ G. M.
 
  The following do not appear in the play but are frequently mentioned:--
 
- LAIUS (_pronounced as three syllables, La-i-us_), _the last King of Thebes
+ LAÏUS (_pronounced as three syllables, Lá-i-us_), _the last King of Thebes
    before Oedipus._
 
- CADMUS, _the founder of Thebes; son of Agenor, King of Sidon._
+ CADMUS, _the founder of Thebes; son of Agênor, King of Sidon._
 
- POLYBUS AND MEROPE, _King and Queen of Corinth, supposed to be the
+ POLYBUS AND MEROPÊ, _King and Queen of Corinth, supposed to be the
    father and mother of Oedipus._
 
  APOLLO, _the God specially presiding over the oracle of Delphi and the
    island Delos: he is also called_ PHOEBUS, _the pure;_ LOXIAS,
    _supposed to mean "He of the Crooked Words"; and_ LYKEIOS, _supposed
    to mean "Wolf-God." He is also the great Averter of Evil, and has
-   names from the cries "I-e" (pronounced "Ee-ay") and "Paian," cries
+   names from the cries "I-ê" (pronounced "Ee-ay") and "Paian," cries
    for healing or for the frightening away of evil influences._
 
  KITHAIRON, _a mass of wild mountain south-west of Thebes._
@@ -314,10 +302,10 @@ G. M.
 
 ARGUMENT
 
-While Thebes was under the rule of LAIUS and JOCASTA there appeared a
+While Thebes was under the rule of LAÏUS and JOCASTA there appeared a
 strange and monstrous creature, "the riddling Sphinx," "the She-Wolf of
 the woven song," who in some unexplained way sang riddles of death and
-slew the people of Thebes. LAIUS went to ask aid of the oracle of
+slew the people of Thebes. LAÏUS went to ask aid of the oracle of
 Delphi, but was slain mysteriously on the road. Soon afterwards there
 came to Thebes a young Prince of Corinth, OEDIPUS, who had left his home
 and was wandering. He faced the Sphinx and read her riddle, whereupon
@@ -374,12 +362,12 @@ PRIEST.
   And chosen youths: and wailing hath not ceased
   Of thousands in the market-place, and by
   Athena's two-fold temples and the dry
-  Ash of Ismenus' portent-breathing shore.
+  Ash of Ismênus' portent-breathing shore.
     For all our ship, thou see'st, is weak and sore
   Shaken with storms, and no more lighteneth
   Her head above the waves whose trough is death.
   She wasteth in the fruitless buds of earth,
-  In parched herds and travail without birth
+  In parchèd herds and travail without birth
   Of dying women: yea, and midst of it
   A burning and a loathly god hath lit
   Sudden, and sweeps our land, this Plague of power;
@@ -528,7 +516,7 @@ OEDIPUS.
 
 CREON.
 
-  O King, there was of old King Laius
+  O King, there was of old King Laïus
   In Thebes, ere thou didst come to pilot us.
 
 OEDIPUS.
@@ -552,7 +540,7 @@ CREON.
 
 OEDIPUS.
 
-  And where did Laius meet them? Did he die
+  And where did Laïus meet them? Did he die
   In Thebes, or in the hills, or some far land?
 
 [Sidenote: vv. 114-127]
@@ -589,7 +577,7 @@ OEDIPUS.
 
 CREON.
 
-  So some men thought. But Laius lay slain,
+  So some men thought. But Laïus lay slain,
   And none to avenge him in his evil day.
 
 [Sidenote: vv. 128-148]
@@ -614,8 +602,8 @@ OEDIPUS.
   Nor is it as for one that touches me
   Far off; 'tis for mine own sake I must see
   This sin cast out. Whoe'er it was that slew
-  Laius, the same wild hand may seek me too:
-  And caring thus for Laius, is but care
+  Laïus, the same wild hand may seek me too:
+  And caring thus for Laïus, is but care
   For mine own blood.--Up! Leave this altar-stair,
   Children. Take from it every suppliant bough.
   Then call the folk of Thebes. Say, 'tis my vow
@@ -642,13 +630,13 @@ CHORUS.
 
     [_They speak of the Oracle which they have not
         yet heard, and cry to_ APOLLO _by his
-        special cry "I-e."_
+        special cry "I-ê."_
 
     A Voice, a Voice, that is borne on the Holy Way!
   What art thou, O Heavenly One, O Word of the Houses of Gold?
   Thebes is bright with thee, and my heart it leapeth; yet is it cold,
         And my spirit faints as I pray.
-            I-e! I-e!
+            I-ê! I-ê!
   What task, O Affrighter of Evil, what task shall thy people essay?
         One new as our new-come affliction,
           Or an old toil returned with the years?
@@ -660,12 +648,12 @@ CHORUS.
 
     Zeus-Child that knowest not death, to thee I pray,
   O Pallas; next to thy Sister, who calleth Thebes her own,
-  Artemis, named of Fair Voices, who sitteth her orbed throne
+  Artemis, named of Fair Voices, who sitteth her orbèd throne
       In the throng of the market way:
 
 [Sidenote: vv. 162-189]
 
-            And I-e! I-e!
+            And I-ê! I-ê!
   Apollo, the Pure, the Far-smiter; O Three that keep evil away,
       If of old for our city's desire,
         When the death-cloud hung close to her brow,
@@ -678,7 +666,7 @@ CHORUS.
     And where is the counsellor, where is the sword of thought?
   And Holy Earth in her increase perisheth:
     The child dies and the mother awaketh not.
-            I-e! I-e!
+            I-ê! I-ê!
   We have seen them, one on another, gone as a bird is gone,
     Souls that are flame; yea, higher,
     Swifter they pass than fire,
@@ -746,7 +734,7 @@ OEDIPUS.
   Howbeit, I, being now as all ye are,
   A Theban, to all Thebans high and low
   Do make proclaim: if any here doth know
-  By what man's hand died Laius, your King,
+  By what man's hand died Laïus, your King,
   Labdacus' son, I charge him that he bring
   To me his knowledge. Let him feel no fear
   If on a townsman's body he must clear
@@ -795,7 +783,7 @@ OEDIPUS.
   His wife lies in my arms, and common fate,
   Had but his issue been more fortunate,
   Might well have joined our children--since this red
-  Chance hath so stamped its heel on Laius' head,
+  Chance hath so stamped its heel on Laïus' head,
   I am his champion left, and, as I would
   For mine own father, choose for ill or good
   This quest, to find the man who slew of yore
@@ -901,7 +889,7 @@ OEDIPUS.
   His message--to our envoy hath decreed
   One only way of help in this great need:
   To find and smite with death or banishing,
-  Him who smote Laius, our ancient King.
+  Him who smote Laïus, our ancient King.
   Oh, grudge us nothing! Question every cry
   Of birds, and all roads else of prophecy
   Thou knowest. Save our city: save thine own
@@ -1245,7 +1233,7 @@ TIRESIAS (_turning again as he goes_).
  That word be spoken which I came to speak.
  How canst thou ever touch me?--Thou dost seek
  With threats and loud proclaim the man whose hand
- Slew Laius. Lo, I tell thee, he doth stand
+ Slew Laïus. Lo, I tell thee, he doth stand
  Here. He is called a stranger, but these days
  Shall prove him Theban true, nor shall he praise
  His birthright. Blind, who once had seeing eyes,
@@ -1418,7 +1406,7 @@ OEDIPUS.
 
    [_Suddenly seeing a mode of attack._
 
-  How many years have passed since Laius ...
+  How many years have passed since Laïus ...
 
     [_The words seem to choke him._
 
@@ -1481,7 +1469,7 @@ CREON.
 OEDIPUS.
 
   This: that until he talked with thee, the seer
-  Ne'er spoke of me as Laius' murderer.
+  Ne'er spoke of me as Laïus' murderer.
 
 [Sidenote: vv. 574-589]
 
@@ -1829,7 +1817,7 @@ JOCASTA.
 
 OEDIPUS.
 
-  He says that I am Laius' murderer.
+  He says that I am Laïus' murderer.
 
 JOCASTA.
 
@@ -1848,18 +1836,18 @@ JOCASTA.
   Truth from the dark of God.
                                Come, I will tell
   An old tale. There came once an oracle
-  To Laius: I say not from the God
+  To Laïus: I say not from the God
   Himself, but from the priests and seers who trod
   His sanctuary: if ever son were bred
   From him and me, by that son's hand, it said,
 
 [Sidenote: vv. 714-732]
 
-  Laius must die. And he, the tale yet stays
+  Laïus must die. And he, the tale yet stays
   Among us, at the crossing of three ways
   Was slain by robbers, strangers. And my son--
   God's mercy!--scarcely the third day was gone
-  When Laius took, and by another's hand
+  When Laïus took, and by another's hand
   Out on the desert mountain, where the land
   Is rock, cast him to die. Through both his feet
   A blade of iron they drove. Thus did we cheat
@@ -1919,7 +1907,7 @@ JOCASTA.
 OEDIPUS.
 
   Ask me not yet. But say, what build, what height
-  Had Laius? Rode he full of youth and might?
+  Had Laïus? Rode he full of youth and might?
 
 JOCASTA.
 
@@ -1950,12 +1938,12 @@ JOCASTA.
 OEDIPUS.
 
   Went he with scant array, or a great band
-  Of armed followers, like a lord of land?
+  Of armèd followers, like a lord of land?
 
 JOCASTA.
 
   Four men were with him, one a herald; one
-  Chariot there was, where Laius rode alone.
+  Chariot there was, where Laïus rode alone.
 
 OEDIPUS.
 
@@ -1974,7 +1962,7 @@ OEDIPUS.
 JOCASTA.
 
   Indeed no. When he came that day, and found
-  Thee on the throne where once sat Laius crowned,
+  Thee on the throne where once sat Laïus crowned,
   He took my hand and prayed me earnestly
 
 [Sidenote: vv. 761-779]
@@ -2010,7 +1998,7 @@ OEDIPUS.
   A mightier love than thine?
                                My father--thus
   I tell thee the whole tale--was Polybus,
-  In Corinth King; my mother Merope
+  In Corinth King; my mother Meropê
   Of Dorian line. And I was held to be
   The proudest in Corinthia, till one day
   A thing befell: strange was it, but no way
@@ -2055,13 +2043,13 @@ OEDIPUS.
 [Sidenote: vv. 808-828]
 
   But watched, and as I passed him on the road
-  Down on my head his iron-branched goad
+  Down on my head his iron-branchèd goad
   Stabbed. But, by heaven, he rued it! In a flash
   I swung my staff and saw the old man crash
   Back from his car in blood.... Then all of them
   I slew.
            Oh, if that man's unspoken name
-  Had aught of Laius in him, in God's eye
+  Had aught of Laïus in him, in God's eye
   What man doth move more miserable than I,
   More dogged by the hate of heaven! No man, kin
   Nor stranger, any more may take me in;
@@ -2114,7 +2102,7 @@ JOCASTA.
 OEDIPUS.
 
   Thou said'st he spoke of robbers, a great band,
-  That slaughtered Laius' men. If still he stand
+  That slaughtered Laïus' men. If still he stand
   To the same tale, the guilt comes not my way.
   One cannot be a band. But if he say
   One lonely loin-girt man, then visibly
@@ -2130,7 +2118,7 @@ JOCASTA.
   Not only I. He cannot change again
   Now. And if change he should, O Lord of men,
   No change of his can make the prophecy
-  Of Laius' death fall true. He was to die
+  Of Laïus' death fall true. He was to die
   Slain by my son. So Loxias spake.... My son!
   He slew no man, that poor deserted one
   That died.... And I will no more turn mine eyes
@@ -2156,7 +2144,7 @@ CHORUS.
     [_Strophe._
 
   Toward God's great mysteries, oh, let me move
-      Unstained till I die
+      Unstainèd till I die
   In speech or doing; for the Laws thereof
   Are holy, walkers upon ways above,
       Born in the far blue sky;
@@ -2455,11 +2443,11 @@ STRANGER.
 
 OEDIPUS.
 
-  Merope, friend, who dwelt with Polybus.
+  Meropê, friend, who dwelt with Polybus.
 
 STRANGER.
 
-  What in Queen Merope should fright thee thus?
+  What in Queen Meropê should fright thee thus?
 
 OEDIPUS.
 
@@ -2690,11 +2678,11 @@ OEDIPUS.
 STRANGER.
 
                          By my memory, then,
-  I think they called him one of Laius' men.
+  I think they called him one of Laïus' men.
 
 OEDIPUS.
 
-  That Laius who was king in Thebes of old?
+  That Laïus who was king in Thebes of old?
 
 STRANGER.
 
@@ -2824,14 +2812,14 @@ CHORUS.
 
   If I, O Kithairon, some vision can borrow
     From seercraft, if still there is wit in the old,
-  Long, long, through the deep-orbed Moon of the morrow--
+  Long, long, through the deep-orbèd Moon of the morrow--
     So hear me, Olympus!--thy tale shall be told.
   O mountain of Thebes, a new Theban shall praise thee,
     One born of thy bosom, one nursed at thy springs;
   And the old men shall dance to thy glory, and raise thee
     To worship, O bearer of joy to my kings.
             And thou, we pray,
-  Look down in peace, O Apollo; I-e, I-e!
+  Look down in peace, O Apollo; I-ê, I-ê!
 
 [Sidenote: vv. 1098-1120]
 
@@ -2841,7 +2829,7 @@ CHORUS.
     Did bear thee, O Babe, to the Crag-walker Pan;
   Or perchance to Apollo? He loveth the leaping
     Of herds on the rock-ways unhaunted of man.
-  Or was it the lord of Cyllene, who found thee,
+  Or was it the lord of Cyllênê, who found thee,
     Or glad Dionysus, whose home is the height,
   Who knew thee his own on the mountain, as round thee
     The White Brides of Helicon laughed for delight?
@@ -2863,7 +2851,7 @@ OEDIPUS.
 LEADER.
 
   I know him well. A shepherd of the fold
-  Of Laius, one he trusted more than all.
+  Of Laïus, one he trusted more than all.
 
     [_The_ SHEPHERD _comes in, led by two thralls.
         He is an old man and seems terrified._
@@ -2884,7 +2872,7 @@ OEDIPUS.
     [_Addressing the_ SHEPHERD.
 
   Old man! Look up, and answer everything
-  I ask thee.--Thou wast Laius' man of old?
+  I ask thee.--Thou wast Laïus' man of old?
 
 SHEPHERD.
 
@@ -2908,7 +2896,7 @@ SHEPHERD.
 
 OEDIPUS.
 
-  Saw'st ever there this man thou seest now?
+  Saw'st ever there this man thou seëst now?
 
 SHEPHERD.
 
@@ -3060,14 +3048,14 @@ OEDIPUS.
 
 SHEPHERD.
 
-              From the folk of Laius, then,
+              From the folk of Laïus, then,
   It came.
 
 [Sidenote: vv. 1168-1176]
 
 OEDIPUS.
 
-          A slave, or born of Laius' blood?
+          A slave, or born of Laïus' blood?
 
 SHEPHERD.
 
@@ -3079,7 +3067,7 @@ OEDIPUS.
 
 SHEPHERD.
 
-  Know then, they said 'twas Laius' child. But she
+  Know then, they said 'twas Laïus' child. But she
   Within, thy wife, best knows its fathering.
 
 OEDIPUS.
@@ -3159,9 +3147,9 @@ CHORUS.
         While ever before mine eyes
         One fate, one ensample, lies--
         Thine, thine, O Oedipus, sore
-            Of God oppressed--
+            Of God oppressèd--
         What thing that is human more
-            Dare I call blessed?
+            Dare I call blessèd?
 
     [_Antistrophe._
 
@@ -3245,7 +3233,7 @@ MESSENGER.
   Toward her old bridal room, and disappeared
   And the doors crashed behind her. But we heard
   Her voice within, crying to him of old,
-  Her Laius, long dead; and things untold
+  Her Laïus, long dead; and things untold
   Of the old kiss unforgotten, that should bring
   The lover's death and leave the loved a thing
   Of horror, yea, a field beneath the plough
@@ -3779,7 +3767,7 @@ CHORUS.
                        OEDIPUS, KING OF THEBES
 
 
-P. 4, l. 21: Dry Ash of Ismenus.]--Divination by burnt offerings was
+P. 4, l. 21: Dry Ash of Ismênus.]--Divination by burnt offerings was
 practised at an altar of Apollo by the river Ismenus in Thebes.
 
 Observe how many traits Oedipus retains of the primitive king, who was
@@ -3888,7 +3876,7 @@ P. 66, l. 1122.]--Is there any part in any tragedy so short and yet so
 effective as that of this Shepherd?
 
 P. 75, l. 1264, Like a dead bird.]--The curious word, [Greek:
-empeplegmenen], seems to be taken from Odyssey xxii. 469, where it is
+empeplêgmenên], seems to be taken from Odyssey xxii. 469, where it is
 applied to birds caught in a snare. As to the motives of Oedipus, his
 first blind instinct to kill Jocasta as a thing that polluted the earth;
 when he saw her already dead, a revulsion came.
@@ -3912,9 +3900,6 @@ the part of a comforter to expound and insist upon his friend's
 misfortunes. But it looks as if ancient manners expected, and even
 demanded, both. Cf. the attitude of Theseus to Adrastus in Eur.,
 _Suppliants_.
-
-
-
 
 
 
