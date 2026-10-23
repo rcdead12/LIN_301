@@ -1,0 +1,386 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "id": "140f9245",
+   "metadata": {},
+   "source": [
+    "- All songs are by the band Dystopia and lyrics are sourced from genius.com\n",
+    "\n",
+    "# Setup"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "id": "7d7c1807",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import re\n",
+    "import pandas as pd\n",
+    "import matplotlib.pyplot as plt"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "41ebf48a",
+   "metadata": {},
+   "source": [
+    "# Building jf_df"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "id": "285e4624",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "with open(\"jarhead_fertilizer.txt\", \"r\", encoding=\"utf-8\") as f:\n",
+    "    jf_lines = f.readlines()\n",
+    "\n",
+    "# removing linebreak characters from lines in list\n",
+    "jf_lines = [line.strip(\"\\n\") for line in jf_lines]\n",
+    "\n",
+    "# one line per row\n",
+    "jf_rows = []\n",
+    "\n",
+    "# creating columns from text, those being the line, the vocalist, and the song title\n",
+    "for line in jf_lines:\n",
+    "    if line.startswith(\"D:\"):\n",
+    "        vocalist = \"dino\"\n",
+    "    elif line.startswith(\"M:\"):\n",
+    "        vocalist = \"mauz\"\n",
+    "    elif line.startswith(\"S:\"):\n",
+    "        vocalist = \"sample\"\n",
+    "    else:\n",
+    "        vocalist = \"both vocalists\"\n",
+    "    line = line[2:]     #removes vocalist label from beginning of line\n",
+    "    jf_rows.append({\"line\": line, \"vocalist\": vocalist, \"song\": \"jarhead fertilizer\"})\n",
+    "\n",
+    "jf_df = pd.DataFrame(jf_rows)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "56e905e9",
+   "metadata": {},
+   "source": [
+    "# Building pbc_df"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "id": "5fec84f2",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "with open(\"population_birth_control.txt\", \"r\", encoding=\"utf-8\") as f:\n",
+    "    pbc_lines = f.readlines()\n",
+    "\n",
+    "# removing linebreak characters from lines in list\n",
+    "pbc_lines = [line.strip(\"\\n\") for line in pbc_lines]\n",
+    "\n",
+    "# one line per row\n",
+    "pbc_rows = []\n",
+    "\n",
+    "# creating columns from text, those being the line, the vocalist, and the song title\n",
+    "for line in pbc_lines:\n",
+    "    if line.startswith(\"D:\"):\n",
+    "        vocalist = \"dino\"\n",
+    "    elif line.startswith(\"M:\"):\n",
+    "        vocalist = \"mauz\"\n",
+    "    elif line.startswith(\"S:\"):\n",
+    "        vocalist = \"sample\"\n",
+    "    else:\n",
+    "        vocalist = \"both vocalists\"\n",
+    "    line = line[2:]     #removes vocalist label from beginning of line\n",
+    "    pbc_rows.append({\"line\": line, \"vocalist\": vocalist, \"song\": \"population birth control\"})\n",
+    "\n",
+    "pbc_df = pd.DataFrame(pbc_rows)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "18ef5475",
+   "metadata": {},
+   "source": [
+    "# Building sanc_df"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "id": "9859edc4",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "with open(\"sanctity.txt\", \"r\", encoding=\"utf-8\") as f:\n",
+    "    sanc_lines = f.readlines()\n",
+    "\n",
+    "# removing linebreak characters from lines in list\n",
+    "sanc_lines = [line.strip(\"\\n\") for line in sanc_lines]\n",
+    "\n",
+    "# one line per row\n",
+    "sanc_rows = []\n",
+    "\n",
+    "# creating columns from text, those being the line, the vocalist, and the song title\n",
+    "for line in sanc_lines:\n",
+    "    if line.startswith(\"D:\"):\n",
+    "        vocalist = \"dino\"\n",
+    "    elif line.startswith(\"M:\"):\n",
+    "        vocalist = \"mauz\"\n",
+    "    elif line.startswith(\"S:\"):\n",
+    "        vocalist = \"sample\"\n",
+    "    else:\n",
+    "        vocalist = \"both vocalists\"\n",
+    "    line = line[2:]     #removes vocalist label from beginning of line\n",
+    "    sanc_rows.append({\"line\": line, \"vocalist\": vocalist, \"song\": \"sanctity\"})\n",
+    "\n",
+    "sanc_df = pd.DataFrame(sanc_rows)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "89c6b3b9",
+   "metadata": {},
+   "source": [
+    "# Building sds_df"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "id": "a237dea5",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "with open(\"socialized_death_sentence.txt\", \"r\", encoding=\"utf-8\") as f:\n",
+    "    sds_lines = f.readlines()\n",
+    "\n",
+    "# removing linebreak characters from lines in list\n",
+    "sds_lines = [line.strip(\"\\n\") for line in sds_lines]\n",
+    "\n",
+    "# one line per row\n",
+    "sds_rows = []\n",
+    "\n",
+    "# creating columns from text, those being the line, the vocalist, and the song title\n",
+    "for line in sds_lines:\n",
+    "    if line.startswith(\"D:\"):\n",
+    "        vocalist = \"dino\"\n",
+    "    elif line.startswith(\"M:\"):\n",
+    "        vocalist = \"mauz\"\n",
+    "    elif line.startswith(\"S:\"):\n",
+    "        vocalist = \"sample\"\n",
+    "    else:\n",
+    "        vocalist = \"both vocalists\"\n",
+    "    line = line[2:]     #removes vocalist label from beginning of line\n",
+    "    sds_rows.append({\"line\": line, \"vocalist\": vocalist, \"song\": \"socialized death sentence\"})\n",
+    "\n",
+    "sds_df = pd.DataFrame(sds_rows)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "7a75a80c",
+   "metadata": {},
+   "source": [
+    "# Building sbc_df"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "id": "7df12ea1",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "with open(\"stress_builds_character.txt\", \"r\", encoding=\"utf-8\") as f:\n",
+    "    sbc_lines = f.readlines()\n",
+    "\n",
+    "# removing linebreak characters from lines in list\n",
+    "sbc_lines = [line.strip(\"\\n\") for line in sbc_lines]\n",
+    "\n",
+    "# one line per row\n",
+    "sbc_rows = []\n",
+    "\n",
+    "# creating columns from text, those being the line, the vocalist, and the song title\n",
+    "for line in sbc_lines:\n",
+    "    if line.startswith(\"D:\"):\n",
+    "        vocalist = \"dino\"\n",
+    "    elif line.startswith(\"M:\"):\n",
+    "        vocalist = \"mauz\"\n",
+    "    elif line.startswith(\"S:\"):\n",
+    "        vocalist = \"sample\"\n",
+    "    else:\n",
+    "        vocalist = \"both vocalists\"\n",
+    "    line = line[2:]     #removes vocalist label from beginning of line\n",
+    "    sbc_rows.append({\"line\": line, \"vocalist\": vocalist, \"song\": \"stress builds character\"})\n",
+    "\n",
+    "sbc_df = pd.DataFrame(sbc_rows)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "0138cf2c",
+   "metadata": {},
+   "source": [
+    "# Combining Songs Into hw5_df"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "id": "fc436f45",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "hw5_df = pd.concat([jf_df, pbc_df, sanc_df, sds_df, sbc_df], ignore_index=True)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "76f062f9",
+   "metadata": {},
+   "source": [
+    "# Adding New Columns To hw5_df"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "id": "e83e2931",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# creating column for line length in characters\n",
+    "hw5_df[\"length\"] = hw5_df[\"line\"].str.len()\n",
+    "\n",
+    "# creating column checking if line contains profanity\n",
+    "profanity = [\"fuck\", \"fucking\", \"fucked\", \"fucks\", \"shit\", \"ass\", \"asshole\", \n",
+    "             \"damn\", \"damnit\", \"dammit\", \"piss\", \"hell\", \"bastard\", \"bitch\"]\n",
+    "\n",
+    "pat = r\"\\b(?:\" + \"|\".join(word for word in profanity) + r\")\\b\"\n",
+    "hw5_df[\"is_profane\"] = hw5_df[\"line\"].str.lower().str.contains(pat)\n",
+    "\n",
+    "# creating column that contains a list of words in lowercase in each line\n",
+    "hw5_df[\"words\"] = hw5_df[\"line\"].str.lower().str.split(r\"[\\W_]+\")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "b7680e00",
+   "metadata": {},
+   "source": [
+    "# Saving hw5_clark_rupert.csv"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "id": "f8b70e21",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "hw5_df.to_csv(\"hw5_clark_rupert.csv\", index=False, encoding=\"utf-8-sig\")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "0950b0ab",
+   "metadata": {},
+   "source": [
+    "# Loading hw5_clark_rupert.csv Back In"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 10,
+   "id": "2298d79a",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "295\n",
+      "                                               line vocalist  \\\n",
+      "0                I thought to myself, join the army   sample   \n",
+      "1                                          Its free   sample   \n",
+      "2                                         Education     dino   \n",
+      "3                                     Stable career     dino   \n",
+      "4                                     Join the army     dino   \n",
+      "5                                 Become a murderer     dino   \n",
+      "6     Kill for god and country, return to be a hero     dino   \n",
+      "7  To tell you the truth I hope you don't come back     dino   \n",
+      "8          Courage, It takes a man to push a button     mauz   \n",
+      "9                                  Fight with honor     mauz   \n",
+      "\n",
+      "                 song  length  is_profane  \\\n",
+      "0  jarhead fertilizer      34       False   \n",
+      "1  jarhead fertilizer       8       False   \n",
+      "2  jarhead fertilizer       9       False   \n",
+      "3  jarhead fertilizer      13       False   \n",
+      "4  jarhead fertilizer      13       False   \n",
+      "5  jarhead fertilizer      17       False   \n",
+      "6  jarhead fertilizer      45       False   \n",
+      "7  jarhead fertilizer      48       False   \n",
+      "8  jarhead fertilizer      40       False   \n",
+      "9  jarhead fertilizer      16       False   \n",
+      "\n",
+      "                                               words  \n",
+      "0  ['i', 'thought', 'to', 'myself', 'join', 'the'...  \n",
+      "1                                    ['its', 'free']  \n",
+      "2                                      ['education']  \n",
+      "3                               ['stable', 'career']  \n",
+      "4                            ['join', 'the', 'army']  \n",
+      "5                        ['become', 'a', 'murderer']  \n",
+      "6  ['kill', 'for', 'god', 'and', 'country', 'retu...  \n",
+      "7  ['to', 'tell', 'you', 'the', 'truth', 'i', 'ho...  \n",
+      "8  ['courage', 'it', 'takes', 'a', 'man', 'to', '...  \n",
+      "9                         ['fight', 'with', 'honor']  \n"
+     ]
+    }
+   ],
+   "source": [
+    "hw5_clark_rupert_df = pd.read_csv('hw5_clark_rupert.csv')\n",
+    "\n",
+    "print(len(hw5_clark_rupert_df)) # print number of rows\n",
+    "print(hw5_clark_rupert_df.head(10)) # print first 10 rows"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "156edd4c",
+   "metadata": {},
+   "source": [
+    "# Conclusion\n",
+    "One row of the table stands for one line of lyrics in the songs in the sample set, all of which are by the doom/sludge metal crust punk band Dystopia. I threw out the vocalist labels on each line, because while they provide useful info for the vocalist column, after that was created there was no longer any use to them and they only cluttered the data. One thing I noticed on my new columns is that there was a lot less profanity in the songs in my sample set than I had thought, given Dystopia's very angry and brash character as a band. I also noticed that, when finding the mean length of each line grouped by song with `print(hw5_df.groupby(\"song\")[\"length\"].mean())`, the song Socialized Death Sentence had the 2nd shortest lines on average out of the 5 songs in the sample set. This surprised me because the lines in the opening sample are pretty long, but I guess the short length of lines of lyrics compensated for that. I did use AI to to figure out how to check lines for profanity, but I asked it in-depth questions about how patterns worked and what each operation did for those I did not quite understand so I believe my use of it was justifiable."
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3",
+   "path": "/usr/share/jupyter/kernels/python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.14.8"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}

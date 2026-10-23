@@ -1,0 +1,180 @@
+- All songs are by the band Dystopia and lyrics are sourced from genius.com
+
+# Setup
+``` {python}
+import re
+import pandas as pd
+import matplotlib.pyplot as plt
+```
+
+# Building jf_df
+``` {python}
+with open("jarhead_fertilizer.txt", "r", encoding="utf-8") as f:
+    jf_lines = f.readlines()
+
+# removing linebreak characters from lines in list
+jf_lines = [line.strip("\n") for line in jf_lines]
+
+# one line per row
+jf_rows = []
+
+# creating columns from text, those being the line, the vocalist, and the song title
+for line in jf_lines:
+    if line.startswith("D:"):
+        vocalist = "dino"
+    elif line.startswith("M:"):
+        vocalist = "mauz"
+    elif line.startswith("S:"):
+        vocalist = "sample"
+    else:
+        vocalist = "both vocalists"
+    line = line[2:]     #removes vocalist label from beginning of line
+    jf_rows.append({"line": line, "vocalist": vocalist, "song": "jarhead fertilizer"})
+
+jf_df = pd.DataFrame(jf_rows)
+```
+
+# Building pbc_df
+``` {python}
+with open("population_birth_control.txt", "r", encoding="utf-8") as f:
+    pbc_lines = f.readlines()
+
+# removing linebreak characters from lines in list
+pbc_lines = [line.strip("\n") for line in pbc_lines]
+
+# one line per row
+pbc_rows = []
+
+# creating columns from text, those being the line, the vocalist, and the song title
+for line in pbc_lines:
+    if line.startswith("D:"):
+        vocalist = "dino"
+    elif line.startswith("M:"):
+        vocalist = "mauz"
+    elif line.startswith("S:"):
+        vocalist = "sample"
+    else:
+        vocalist = "both vocalists"
+    line = line[2:]     #removes vocalist label from beginning of line
+    pbc_rows.append({"line": line, "vocalist": vocalist, "song": "population birth control"})
+
+pbc_df = pd.DataFrame(pbc_rows)
+```
+
+# Building sanc_df
+``` {python}
+with open("sanctity.txt", "r", encoding="utf-8") as f:
+    sanc_lines = f.readlines()
+
+# removing linebreak characters from lines in list
+sanc_lines = [line.strip("\n") for line in sanc_lines]
+
+# one line per row
+sanc_rows = []
+
+# creating columns from text, those being the line, the vocalist, and the song title
+for line in sanc_lines:
+    if line.startswith("D:"):
+        vocalist = "dino"
+    elif line.startswith("M:"):
+        vocalist = "mauz"
+    elif line.startswith("S:"):
+        vocalist = "sample"
+    else:
+        vocalist = "both vocalists"
+    line = line[2:]     #removes vocalist label from beginning of line
+    sanc_rows.append({"line": line, "vocalist": vocalist, "song": "sanctity"})
+
+sanc_df = pd.DataFrame(sanc_rows)
+```
+
+# Building sds_df
+``` {python}
+with open("socialized_death_sentence.txt", "r", encoding="utf-8") as f:
+    sds_lines = f.readlines()
+
+# removing linebreak characters from lines in list
+sds_lines = [line.strip("\n") for line in sds_lines]
+
+# one line per row
+sds_rows = []
+
+# creating columns from text, those being the line, the vocalist, and the song title
+for line in sds_lines:
+    if line.startswith("D:"):
+        vocalist = "dino"
+    elif line.startswith("M:"):
+        vocalist = "mauz"
+    elif line.startswith("S:"):
+        vocalist = "sample"
+    else:
+        vocalist = "both vocalists"
+    line = line[2:]     #removes vocalist label from beginning of line
+    sds_rows.append({"line": line, "vocalist": vocalist, "song": "socialized death sentence"})
+
+sds_df = pd.DataFrame(sds_rows)
+```
+
+# Building sbc_df
+``` {python}
+with open("stress_builds_character.txt", "r", encoding="utf-8") as f:
+    sbc_lines = f.readlines()
+
+# removing linebreak characters from lines in list
+sbc_lines = [line.strip("\n") for line in sbc_lines]
+
+# one line per row
+sbc_rows = []
+
+# creating columns from text, those being the line, the vocalist, and the song title
+for line in sbc_lines:
+    if line.startswith("D:"):
+        vocalist = "dino"
+    elif line.startswith("M:"):
+        vocalist = "mauz"
+    elif line.startswith("S:"):
+        vocalist = "sample"
+    else:
+        vocalist = "both vocalists"
+    line = line[2:]     #removes vocalist label from beginning of line
+    sbc_rows.append({"line": line, "vocalist": vocalist, "song": "stress builds character"})
+
+sbc_df = pd.DataFrame(sbc_rows)
+```
+
+# Combining Songs Into hw5_df
+``` {python}
+hw5_df = pd.concat([jf_df, pbc_df, sanc_df, sds_df, sbc_df], ignore_index=True)
+```
+
+# Adding New Columns To hw5_df
+``` {python}
+# creating column for line length in characters
+hw5_df["length"] = hw5_df["line"].str.len()
+
+# creating column checking if line contains profanity
+profanity = ["fuck", "fucking", "fucked", "fucks", "shit", "ass", "asshole", 
+             "damn", "damnit", "dammit", "piss", "hell", "bastard", "bitch"]
+
+pat = r"\b(?:" + "|".join(word for word in profanity) + r")\b"
+hw5_df["is_profane"] = hw5_df["line"].str.lower().str.contains(pat)
+
+# creating column that contains a list of words in lowercase in each line
+hw5_df["words"] = hw5_df["line"].str.lower().str.split(r"[\W_]+")
+```
+
+# Saving hw5_clark_rupert.csv
+``` {python}
+hw5_df.to_csv("hw5_clark_rupert.csv", index=False, encoding="utf-8-sig")
+```
+
+# Loading hw5_clark_rupert.csv Back In
+``` {python}
+hw5_clark_rupert_df = pd.read_csv('hw5_clark_rupert.csv')
+
+print(len(hw5_clark_rupert_df)) # print number of rows
+print(hw5_clark_rupert_df.head(10)) # print first 10 rows
+```
+
+# Conclusion
+One row of the table stands for one line of lyrics in the songs in the sample set, all of which are by the doom/sludge metal crust punk band Dystopia. I threw out the vocalist labels on each line, because while they provide useful info for the vocalist column, after that was created there was no longer any use to them and they only cluttered the data. One thing I noticed on my new columns is that there was a lot less profanity in the songs in my sample set than I had thought, given Dystopia's very angry and brash character as a band. I also noticed that, when finding the mean length of each line grouped by song with `print(hw5_df.groupby("song")["length"].mean())`, the song Socialized Death Sentence had the 2nd shortest lines on average out of the 5 songs in the sample set. This surprised me because the lines in the opening sample are pretty long, but I guess the short length of lines of lyrics compensated for that. I did use AI to to figure out how to check lines for profanity, but I asked it in-depth questions about how patterns worked and what each operation did for those I did not quite understand so I believe my use of it was justifiable.
