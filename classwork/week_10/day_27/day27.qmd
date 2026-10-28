@@ -1,0 +1,103 @@
+```{python}
+def pluralize(noun):
+    plural = noun + "s"
+    return plural
+```
+
+# Activity 1: Write Two Functions
+- past_tense(verb)
+```{python}
+def past_tense(verb):
+    past_tense = verb + "ed"
+    return past_tense
+```
+
+- ttr(words)
+```{python}
+def ttr(words):
+    ttr = len(set(words)) / len(words)
+    return ttr
+
+test = ["the", "cat", "saw", "the", "dog"]  # test list to use ttr(words) on
+```
+
+# Two Parameters
+- goal is to compare the _same number_ of words
+- default value for number of words is 10,000
+```{python}
+def ttr_first(words, n=10000):
+    return len(set(words[:n])) / len(words[:n])
+```
+
+# Activity 2: Average Word Length
+```{python}
+def avg_word_len(words):
+    wd_len_total = 0
+    for w in words:
+        wd_len_total += len(w)
+    return wd_len_total / len(words)
+```
+
+
+# Simplifying Detective Gutenberg
+## Activity 3: load_words()
+```{python}
+import re
+
+def load_words(filename):
+    try:
+        with open("../../../data/gutenberg/" + filename, "r", encoding="utf-8") as f:
+            lines = f.readlines()
+    except FileNotFoundError:
+        print("Couldn't find a file — check the filename and location.")
+    
+    while not lines[0].startswith("*** START"):
+        lines = lines[1:]     # chop off the first line
+    lines = lines[1:]         # chop off the *** START line itself
+    
+    while not lines[-1].startswith("*** END"):
+        lines = lines[:-1]    # chop off the last line
+    lines = lines[:-1]        # chop off the *** END line itself
+    
+    text = "".join(lines)
+    
+    ## cleaning and splitting
+    words = re.split(r"[\W]+", text.lower())
+    words = [w for w in words if w != ""]
+```
+
+## One report per book
+```{python}
+def report(title, words):
+    ttr = len(set(words)) / len(words)
+    ttr_10000 = len(set(words[:10000])) / len(words[:10000])
+
+    letters = 0
+    for w in words:
+        letters += len(w)
+
+    print(title, "TTR:", ttr)
+    print(title, "TTR (10,000 words):", ttr_10000)
+    print(title, "Average Word Length:", letters / len(words))
+    return ttr_10000
+
+alice_ttr_10000 = report("Alice", load_words("alice.txt"))
+mansfield_ttr_10000 = report("Mansfield Park", load_words("mansfield_park.txt"))
+odyssey_ttr_10000 = report("The Odyssey", load_words("odyssey.txt"))
+
+plt.bar(["Lewis Carroll", "Jane Austen", "Homer (tr. Butler)"], [alice_ttr_10000, mansfield_ttr_10000, odyssey_ttr_10000])
+plt.title("TTR Comparison: Alice vs Mansfield Park vs The Odyssey")
+plt.xlabel("Author")
+plt.ylabel("TTR")
+plt.show()
+```
+
+# Testing if lin301.py works
+```{python}
+import sys
+sys.path.append("../../../data")   # look for files in data/, too
+import lin301
+
+alice_words = lin301.load_words("alice.txt")
+lin301.ttr_first(alice_words)
+```
