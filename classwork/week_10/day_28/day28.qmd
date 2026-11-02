@@ -1,0 +1,100 @@
+# Review
+## Today's File -- Importing Functions
+```{python}
+import sys
+sys.path.append("../../../data")
+from lin301 import *    # this allows you to call up all of the functions in the file, without using the lin301. initial part
+# imports ttr(), ttr_first(), avg_word_len(), load_words(), and report()
+import re
+```
+
+## Warm-Up
+```{python}
+oz_words = load_words("oz.txt")
+print('The TTR of "The Wonderful Wizard of Oz" for the first 1000 words is: ', ttr_first(oz_words))
+print('The average word length in "The Wonderful Wizard of Oz" is: ', avg_word_len(oz_words))
+```
+
+# Functions That Use Functions
+## A Shorter report()
+```{python}
+def report(title, words):
+    print(title, "TTR:", ttr(words))
+    print(title, "TTR (10,000 words):", ttr_first(words))
+    print(title, "Average Word Length:", avg_word_len(words))
+    return ttr_first(words)
+
+report("Alice", load_words("alice.txt"))
+```
+
+## Activity 1: an -ly Rate Function
+- also added ly_rate() to lin301.py
+```{python}
+def ly_rate(words):
+    ly_count = 0
+    for w in words:
+        if w.endswith("ly"):
+            ly_count += 1
+    ly_rate = ly_count / len(words) * 1000
+    return ly_rate
+
+ly_rate(["quickly", "fox", "only", "the"])
+```
+
+# Adding Pandas to Functions
+## book_to_df(filename, label)
+- This function is added into the lin301.py file, opens and turns book into DataFrame
+- The function load_text(filename) is also added to lin301.py, which stores all lines of the book as a list
+- load_words(filename) is shortened using load_text()
+
+## Activity 2: book_to_df()
+```{python}
+import pandas as pd
+
+def book_to_df(filename, label):
+    text = load_text(filename)
+    # Split into chapters
+    chapters = re.split(r"\nCHAPTER [IVXL]+", text)
+    chapters = chapters[1:]
+
+    # One row per word with its chapter
+    rows = []
+    chapter_num = 0
+
+    for chapter in chapters:
+        chapter_num += 1
+        words = re.split(r"[\W_]+", chapter.lower())   # split on \W AND on _
+        words = [w for w in words if w != ""]
+        for w in words:
+            rows.append({"word": w, "chapter": chapter_num})
+
+    df = pd.DataFrame(rows)
+    df["text"] = label
+    
+    return df
+```
+
+## Activity 3: add_columns()
+```{python}
+stopwords = ["the", "to", "and", "of", "a", "her", "i", "in", "was", "it",
+             "she", "he", "be", "that", "you", "not", "had", "as", "his", "for",
+             "with", "is", "have", "but", "at", "so", "all", "my", "been", "him",
+             "on", "by", "could", "would", "very", "no", "what", "which", "they",
+             "were", "there", "me", "an", "must", "this", "said", "from", "or",
+             "will", "any", "much", "than", "such", "their", "them", "if", "do",
+             "did", "one", "when", "your", "more", "are", "we", "who", "up",
+             "out", "down", "into", "s", "t"]
+
+def add_columns(df, stopwords):
+    # add "length", "is_ly" and "is_stopword"
+    df
+    return df
+```
+
+
+
+
+
+```{python}
+
+```
