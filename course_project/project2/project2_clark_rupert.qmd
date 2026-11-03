@@ -1,0 +1,73 @@
+# Loading and Cleaning Data
+```{python}
+import re
+import pandas as pd
+
+def song_to_df(filename, label):
+    with open("../gd_data/" + filename, "r", encoding="utf-8") as f:
+        lines = f.readlines()
+
+    lines = [line.strip("\n") for line in lines]
+
+    rows = []
+
+    part = "" 
+    for line in lines:
+        if line.endswith(")"):  # removes footnote markings from raw text
+            line = line[:-9]
+
+        if "[verse]" in line:   # adds label for section of song
+            part = "verse"
+            line = ""      # removes part label from line
+        elif "[chorus]" in line:
+            part = "chorus"
+            line = ""
+        elif "[bridge]" in line:
+            part = "bridge"
+            line = ""
+        elif line != "":
+            rows.append({"line": line, "section": part, "song": label})
+        
+    
+    df = pd.DataFrame(rows)
+
+    return df
+```
+
+## Processing Songs
+```{python}
+china_df = song_to_df("china.txt", "china cat sunflower")
+eyes_df = song_to_df("eyes.txt", "eyes of the world")
+mexicali_df = song_to_df("mexicali.txt", "mexicali blues")
+promised_df = song_to_df("promised.txt", "promised land")
+sugaree_df = song_to_df("sugaree.txt", "sugaree")
+truckin_df = song_to_df("truckin.txt", "truckin")
+
+df = pd.concat([china_df, eyes_df, mexicali_df, promised_df, sugaree_df, truckin_df], ignore_index=True)
+```
+
+## Checking Dataframe
+```{python}
+print(len(df))
+print(df.head())
+print(df.tail())
+print(df[135:155])
+```
+
+## Saving df as .csv
+```{python}
+df.to_csv("project2_clark_rupert.csv", index=False, encoding="utf-8-sig")
+```
+
+## Reloading .csv & checking
+```{python}
+check = pd.read_csv("project2_clark_rupert.csv")
+print(len(df), len(check))
+check.head()
+```
+
+# Writeup
+I used an individual raw text file for each song so that they could be labeled easier, and the text came from whitegum.com's Grateful Dead lyric database. My dataset did not change, except I added replaced the song "Me and My Uncle" with "Sugaree" so that I would have an equal number of songs sung by Jerry and Bobby.
+To clean the text, I removed all the markings that delineated chorus, verse, and bridge in the songs. I also removed empty lines, extra spaces where they were not needed, and footnote markings from the ends of lines when they appeared. I split the text on linebreaks and then after that was done, regex linebreak markings (\n) were removed from each line.
+One row in my table represents one line of text. The first column is "line", which contains the text of the line in the song. The next column is "section", which indicates whether the corresponding line is from the verse, chorus, or bridge of the song. The final column is "song", which indicates the name of the song the line is from. There are 252 rows in the DataFrame.
+There are no problems in my data that I'm aware of that I'll need to deal with before component 3. I wish I could've kept the song "Me and My Uncle", but since I love pretty much all Grateful Dead songs so I can't dwell on that too much.

@@ -1,0 +1,8 @@
+Song Title / Singer: J (jerry), B (bobby) / is_cover(True,False) / Era: P (pigpen), T (pigpen-keith together), K (keith), BR (brent) / song length from studio
+
+China Cat Sunflower / J / False / P / 222
+Eyes of the World / J / False / T / 320
+Mexicali Blues / B / False / K / 206
+Promised Land / B / True / T / 203
+Sugaree / J / False / T / 353
+Truckin / B / False / P / 306

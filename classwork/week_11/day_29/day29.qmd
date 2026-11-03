@@ -1,0 +1,71 @@
+```{python}
+import re
+import pandas as pd
+
+import sys
+sys.path.append("../../../data")
+from lin301 import *
+
+import spacy
+nlp = spacy.load("en_core_web_sm")
+```
+
+
+# functions
+```{python}
+def book_to_df(filename, label):
+    text = load_text(filename)
+    chapters = re.split(r"(?im)^CHAPTER\s+(?:[IVXLCDM]+|\d+)\b", text)
+    chapters = chapters[1:]
+    rows = []
+    chapter_num = 0
+    for chapter in chapters:
+        chapter_num += 1
+        words = re.split(r"[\W_]+", chapter.lower())
+        words = [w for w in words if w != ""]
+        for w in words:
+            rows.append({"word": w, "chapter": chapter_num})
+    df = pd.DataFrame(rows)
+    df["text"] = label
+    return df
+
+
+def book_to_spacy_df(filename, label, nlp):
+    text = load_text(filename)
+    chapters = re.split(r"(?im)^CHAPTER\s+(?:[IVXLCDM]+|\d+)\b", text)
+    chapters = chapters[1:]
+    rows = []
+    chapter_num = 0
+    for chapter in chapters:
+        chapter_num += 1
+        doc = nlp(chapter)
+        for token in doc:
+            if token.is_alpha:
+                rows.append({"word": token.text.lower(),
+                             "lemma": token.lemma_.lower(),
+                             "pos": token.pos_,
+                             "is_stop": token.is_stop,
+                             "chapter": chapter_num})
+    df = pd.DataFrame(rows)
+    df["text"] = label
+    return df
+```
+
+# activity 4
+
+1.  Run `book_to_spacy_df()` on *Mansfield Park*. (It's a long book -- give it about 20 seconds.)
+```{python}
+mp_sp = book_to_spacy_df("mansfield_park.txt", "Mansfield Park", nlp)
+alice_sp = add_columns(alice_sp, stopwords)   # adds is_ly (and length, is_stopword)
+mp_sp = add_columns(mp_sp, stopwords)
+```
+
+2.  For each book, compute adverbs per 1,000 words, and *-ly* words per 1,000 words. (Hint: revisit your `add_columns()` function and use the `.mean()` method)
+```{python}
+
+```
+
+3.  Which book uses more adverbs? Does the *-ly* rate tell the same story?
+```{python}
+
+```
