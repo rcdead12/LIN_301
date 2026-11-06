@@ -1,0 +1,26 @@
+# Setup
+## Importing Functions
+```{python}
+import sys
+sys.path.append("../../../data")
+from lin301 import *
+
+import spacy
+from spacy import displacy
+nlp = spacy.load("en_core_web_sm")
+```
+
+# Sentences
+## Splitting Text Into Sentences
+```{python}
+doc = nlp("I am delighted to be here today. We meet in an hour of change and challenge. Do cats eat bats?")
+
+for sent in doc.sents:
+    print(sent.text)
+```
+
+
+
+```{python}
+
+```

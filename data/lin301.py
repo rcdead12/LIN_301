@@ -1,17 +1,9 @@
 import os
 import re
 import pandas as pd
+from nltk.corpus import wordnet as wn
 
 HERE = os.path.dirname(__file__)   # the folder lin301.py lives in: data/
-
-stopwords = ["the", "to", "and", "of", "a", "her", "i", "in", "was", "it",
-             "she", "he", "be", "that", "you", "not", "had", "as", "his", "for",
-             "with", "is", "have", "but", "at", "so", "all", "my", "been", "him",
-             "on", "by", "could", "would", "very", "no", "what", "which", "they",
-             "were", "there", "me", "an", "must", "this", "said", "from", "or",
-             "will", "any", "much", "than", "such", "their", "them", "if", "do",
-             "did", "one", "when", "your", "more", "are", "we", "who", "up",
-             "out", "down", "into", "s", "t"]
 
 def ttr(words):
     return len(set(words)) / len(words)
@@ -78,8 +70,60 @@ def book_to_df(filename, label):
     df["text"] = label
     return df
 
-def add_columns(df, stopwords):
+def add_columns(df):
     df["length"] = df["word"].str.len()
     df["is_ly"] = df["word"].str.endswith("ly")
-    df["is_stopword"] = df["word"].isin(stopwords)
     return df
+
+def book_to_spacy_df(filename, label, nlp):
+    text = load_text(filename)
+    chapters = re.split(r"(?im)^CHAPTER\s+(?:[IVXLCDM]+|\d+)\b", text)
+    chapters = chapters[1:]
+    rows = []
+    chapter_num = 0
+    for chapter in chapters:
+        chapter_num += 1
+        doc = nlp(chapter)
+        sentence_num = 0
+        for sent in doc.sents:
+            sentence_num += 1
+            for token in sent:
+                if token.is_alpha:
+                    rows.append({"word": token.text.lower(),
+                                 "lemma": token.lemma_.lower(),
+                                 "pos": token.pos_,
+                                 "is_stop": token.is_stop,
+                                 "sentence": sentence_num,
+                                 "chapter": chapter_num})
+    df = pd.DataFrame(rows)
+    df["text"] = label
+    return df
+
+def book_to_svo_df(filename, label, nlp):
+    text = load_text(filename)
+    chapters = re.split(r"(?im)^CHAPTER\s+(?:[IVXLCDM]+|\d+)\b", text)
+    chapters = chapters[1:]
+    rows = []
+    chapter_num = 0
+    for chapter in chapters:
+        chapter_num += 1
+        doc = nlp(chapter)
+        for token in doc:
+            if token.pos_ == "VERB":
+                subjects = [c for c in token.children if c.dep_ == "nsubj"]
+                objects = [c for c in token.children if c.dep_ == "dobj"]
+                if subjects and objects:
+                    rows.append({"subject": subjects[0].lemma_.lower(),
+                                 "verb": token.lemma_.lower(),
+                                 "object": objects[0].lemma_.lower(),
+                                 "chapter": chapter_num})
+    df = pd.DataFrame(rows)
+    df["text"] = label
+    return df
+
+def is_a(word, category):
+    for synset in wn.synsets(word, pos=wn.NOUN):
+        for path in synset.hypernym_paths():
+            if category in path:
+                return True
+    return False

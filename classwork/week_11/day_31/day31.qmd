@@ -1,0 +1,160 @@
+```{python}
+import sys
+sys.path.append("../../../data")
+from lin301 import *
+```
+
+```{python}
+import spacy
+nlp = spacy.load("en_core_web_sm")
+
+alice_svo = book_to_svo_df("alice.txt", "Alice", nlp)
+```
+
+```{python}
+import nltk
+nltk.download("wordnet")
+
+from nltk.corpus import wordnet as wn
+```
+
+```{python}
+wn.synsets("bat")
+```
+
+```{python}
+for synset in wn.synsets("bat"):
+    print(synset.name(), "→", synset.definition())
+```
+
+```{python}
+bat = wn.synset("bat.n.01")
+
+print(bat.definition())
+print(bat.lemma_names())
+print(wn.synset("bat.v.02").examples())
+```
+
+```{python}
+wn.synsets("bat", pos=wn.NOUN)
+```
+
+## number of definitions for each word: total, noun meanings, verb meanings
+```{python}
+for word in ["bank", "duck", "soup"]:
+    print(word, len(wn.synsets(word)),
+          len(wn.synsets(word, pos=wn.NOUN)),
+          len(wn.synsets(word, pos=wn.VERB)))
+```
+
+```{python}
+for synset in wn.synsets("soup", pos=wn.NOUN):
+    print(synset.name(), "→", synset.definition())
+```
+
+```{python}
+soup = wn.synset("soup.n.01")
+soup.hypernyms()
+```
+
+```{python}
+for path in soup.hypernym_paths():
+    print(" > ".join([s.name() for s in path]))
+```
+
+# activity 2
+```{python}
+for path in wn.synset("cat.n.01").hypernym_paths():
+    print(" > ".join([s.name() for s in path]))
+```
+
+## A Function: `is_a()`
+
+-   Is any noun sense of a word under a category?
+
+```{python}
+def is_a(word, category):
+    for synset in wn.synsets(word, pos=wn.NOUN):
+        for path in synset.hypernym_paths():
+            if category in path:
+                return True
+    return False
+```
+
+```{python}
+food = wn.synset("food.n.01")
+print(is_a("soup", food))
+print(is_a("hatter", food))
+```
+
+
+# activity 3
+1.  Make `animal = wn.synset("animal.n.01")`.
+2.  Add a column `subject_is_animal` to `alice_svo`, using `is_a()` on the **subject**.
+3.  Which animals are subjects? Count them with `.groupby()`.
+4.  Find one word that isn't really an animal in *Alice*. Which sense made `is_a()` say `True`?
+```{python}
+animal = wn.synset("animal.n.01")
+
+alice_svo["subject_is_animal"] = [is_a(w, animal) for w in alice_svo["subject"]]
+
+animals = alice_svo[alice_svo['subject_is_animal']]
+
+animals.groupby('subject').size().sort_values(ascending=False).head(30)
+```
+
+# Other Relations
+## Opposites: Antonyms
+```{python}
+antonyms = []
+for synset in wn.synsets("slow"):
+    for lemma in synset.lemmas():
+        for ant in lemma.antonyms():
+            antonyms.append(ant.name())
+print(antonyms)
+```
+
+## Parts and Wholes: Meronyms
+-   A **meronym** is a part: a *car door* is part of a *car*.
+-   The opposite, `part_holonyms()`, gives the whole.
+```{python}
+wn.synset("car.n.01").part_meronyms()[:6]
+```
+
+## Verbs: Entailments
+```{python}
+print(wn.synset("snore.v.01").entailments())
+print(wn.synset("buy.v.01").entailments())
+```
+
+## How Similar? Wu–Palmer Similarity
+-   How close are two synsets in the tree? From 0 (unrelated) to 1 (the same).
+-   The closer their shared ancestor is to them, the higher the score.
+```{python}
+dog = wn.synset("dog.n.01")
+for other in ["cat.n.01", "rabbit.n.01", "bat.n.01", "cake.n.03"]:
+    print(other, dog.wup_similarity(wn.synset(other)))
+```
+
+## Activity 4: Explore
+1.  Find the antonyms of *good*, *open*, and *happy*.
+2.  What are the parts (`part_meronyms()`) of `tree.n.01`? Of `hand.n.01`?
+3.  How similar are *cat* and *mouse*? *Queen* and *king*? Pick the right synsets first!
+```{python}
+for word in ["good", "open", "happy"]:
+    antonyms = []
+    for synset in wn.synsets(word):
+        for lemma in synset.lemmas():
+            for ant in lemma.antonyms():
+                antonyms.append(ant.name())
+    print(word, set(antonyms))
+```
+
+
+
+
+
+
+```{python}
+
+```
