@@ -1,0 +1,256 @@
+# Setup
+```{python}
+import sys
+sys.path.append("../../../data")
+from lin301 import *
+
+import unicodedata
+import spacy
+nlp = spacy.load("en_core_web_sm")
+nlp_fr = spacy.load("fr_core_news_sm")
+nlp_it = spacy.load("it_core_news_lg")
+
+en = book_to_spacy_df("alice.txt", "English", nlp)
+fr = book_to_spacy_df("alice_fr.txt", "French", nlp_fr, "CHAPITRE")
+it = book_to_spacy_df("alice_it.txt", "Italian", nlp_it, "CAPITOLO")
+
+for df in [en, fr, it]:
+    print(df["text"][0], len(df), df["chapter"].max())
+```
+
+## Recap from Last Time
+
+-   **WordNet** groups words into **synsets**, one per meaning.
+-   `.hypernym_paths()` tells us what kind of thing a word is.
+-   `is_a()` checks whether **any** sense of a word is under a category.
+
+# Text is Numbers: Unicode
+## Every Character Is a Number
+-   Computers store text as numbers. **Unicode** gives every character in every writing system its own number.
+-   `ord()`: character → number; `chr()`: number → character
+```{python}
+print(ord("a"))
+print(ord("é"))
+print(ord("γ"))
+print(ord("猫"))
+print(chr(233))
+```
+
+## Every Character Has a Name
+```{python}
+print(unicodedata.name("é"))
+print(unicodedata.name("γ"))
+print(unicodedata.name("ā"))
+print(unicodedata.name("ʻ"))
+```
+
+## Same Look, Different String
+-   *é* can be written two ways: one character, or *e* plus a combining accent.
+```python
+a = "é"
+b = "e\u0301"   # e + COMBINING ACUTE ACCENT
+print(a, b)
+print(len(a), len(b))
+print(a == b)
+```
+
+## Normalizing
+-   `"NFC"` combines letters and accents into single characters wherever it can.
+-   Normalize text from different sources before you compare or count it.
+```{python}
+print([unicodedata.name(c) for c in b])
+print(unicodedata.normalize("NFC", b) == a)
+```
+
+## Activity 1: Unicode
+1.  Print the number and name of every letter in *naïve*.
+2.  Now print the number and name of *ñ*, *ß*, *ж*, and *ك*.
+3.  Make `"n\u0303"` (*n* + COMBINING TILDE). How long is it? Normalize it. Is it now equal to `"ñ"`?
+```{python}
+for i in "naïve":
+    print(i, ord(i), unicodedata.name(i))
+
+for i in "ñßжك":
+    print(i, ord(i), unicodedata.name(i))
+
+n_tilde = "n\u0303"
+print(len(n_tilde), unicodedata.normalize("NFC", n_tilde) == "ñ")
+```
+
+
+# Files Are Bytes: Encodings
+## Older Files, Older Encodings
+- Let's save a sentence from the Spanish *Alice* in an older encoding, **Latin-1**, and then read it back as UTF-8.
+```{python}
+with open("spanish_latin1.txt", "w", encoding="latin-1") as f:
+    f.write("Alicia, la niña, era matemática.")
+
+with open("spanish_latin1.txt", "r", encoding="utf-8") as f:
+    text = f.read()
+```
+
+## Reading It Correctly
+```{python}
+with open("spanish_latin1.txt", "r", encoding="latin-1") as f:
+    print(f.read())
+```
+
+## The Opposite Mistake
+```{python}
+with open("spanish_utf8.txt", "w", encoding="utf-8") as f:
+    f.write("Alicia, la niña, era matemática.")
+
+with open("spanish_utf8.txt", "r", encoding="latin-1") as f:
+    print(f.read())
+```
+
+
+# spaCy Speaks Other Languages
+## Do Cats Eat Bats? In Italian
+```python
+doc = nlp_it("I gatti mangiano i pipistrelli?")
+
+for token in doc:
+    print(token.text, token.lemma_, token.pos_)
+```
+
+## Compare English
+```python
+for token in nlp("Do cats eat bats?"):
+    print(token.text, token.morph)
+```
+
+## Predictions, Not Facts (Again)
+```python
+doc = nlp_fr("Les chats mangent-ils les chauves-souris ?")
+for token in doc:
+    print(token.text, token.lemma_, token.pos_)
+```
+
+## Activity 2: Morphology
+1.  Print each token's text, lemma, POS, and morphology.
+2.  What does the morphology of *cominciava* tell you?
+3.  Find two mistakes spaCy makes in this sentence.
+```{python}
+doc = nlp_it("Alice cominciava a sentirsi stanca.")
+
+for token in doc:
+    print(token.text, token.lemma_, token.pos_, token.morph)
+```
+
+# Same Book, Three Languages
+## What's English-Specific in Our Function?
+-   French *Alice* has *CHAPITRE PREMIER*, *CHAPITRE II*...
+-   Italian *Alice* has *CAPITOLO I*, *CAPITOLO II*...
+-   The word for *chapter* should be a **parameter**!
+```python
+chapters = re.split(r"(?im)^CHAPTER\s+(?:[IVXLCDM]+|\d+)\b", text)
+```
+
+## A Parameter with a Default
+-   Remember `ttr_first(words, n=10000)`? If you don't give `n`, it uses `10000`.
+-   We'll do the same: `chapter_word="CHAPTER"`
+```{python}
+def book_to_spacy_df(filename, label, nlp, chapter_word="CHAPTER"):
+    text = load_text(filename)
+    chapters = re.split(r"(?m)^" + chapter_word + r"\b.*$", text)
+```
+
+## One More Column: Morphology
+```python
+rows.append({"word": token.text.lower(),
+             "lemma": token.lemma_.lower(),
+             "pos": token.pos_,
+             "morph": str(token.morph),
+             "is_stop": token.is_stop,
+             "sentence": sentence_num,
+             "chapter": chapter_num})
+```
+
+## The New `book_to_spacy_df()`
+```{python}
+def book_to_spacy_df(filename, label, nlp, chapter_word="CHAPTER"):
+    text = load_text(filename)
+    chapters = re.split(r"(?m)^" + chapter_word + r"\b.*$", text)
+    chapters = chapters[1:]
+    rows = []
+    chapter_num = 0
+    for chapter in chapters:
+        chapter_num += 1
+        doc = nlp(chapter)
+        sentence_num = 0
+        for sent in doc.sents:
+            sentence_num += 1
+            for token in sent:
+                if token.is_alpha:
+                    rows.append({"word": token.text.lower(),
+                                 "lemma": token.lemma_.lower(),
+                                 "pos": token.pos_,
+                                 "morph": str(token.morph),
+                                 "is_stop": token.is_stop,
+                                 "sentence": sentence_num,
+                                 "chapter": chapter_num})
+    df = pd.DataFrame(rows)
+    df["text"] = label
+    return df
+```
+
+## Sentence Length in Three Languages
+```python
+for df in [en, fr, it]:
+    print(df["text"][0], df.groupby(["chapter", "sentence"]).size().mean())
+```
+
+## Pronouns per 1,000 Words
+-   `round(x, 1)` rounds a number to 1 decimal place.
+-   Italian uses far fewer pronouns. Why do you think that is?
+```python
+for df in [en, fr, it]:
+    print(df["text"][0], round((df["pos"] == "PRON").mean() * 1000, 1))
+```
+
+## Searching the Morphology
+-   `.str.contains()` searches inside the `morph` string.
+-   `.sum()` counts the `True`s.
+```python
+it_nouns = it[it["pos"] == "NOUN"]
+print("Feminine:", it_nouns["morph"].str.contains("Gender=Fem").sum())
+print("Masculine:", it_nouns["morph"].str.contains("Gender=Masc").sum())
+```
+
+## Any Part of Speech, per 1,000 Words
+-   The pronoun code works for **any** part of speech: just change `"PRON"`.
+-   `df["pos"] == "PRON"` gives a `True`/`False` for every word.
+-   `.mean()` of `True`s and `False`s is the **share** that are `True` (`True` = 1, `False` = 0).
+-   `* 1000` turns that share into "per 1,000 words."
+```python
+(df["pos"] == "PRON").mean() * 1000
+```
+
+## Activity 3: Determiners
+1.  Find the number of determiners (`DET`) per 1,000 words in each language.
+2.  Which language uses the fewest?
+```{python}
+for df in [en, fr, it]:
+    print(df["text"][0], round((df["pos"] == "DET").mean() * 1000, 1))
+```
+
+## Activity 3: Auxiliaries
+1.  Now do the same for auxiliaries (`AUX`).
+2.  Which language uses the **most** auxiliaries?
+```{python}
+for df in [en, fr, it]:
+    print(df["text"][0], round((df["pos"] == "AUX").mean() * 1000, 1))
+```
+
+## Activity 3: Gender
+-   Count masculine and feminine nouns in French. Is the split like Italian's?
+```{python}
+fr_nouns = fr[fr["pos"] == "NOUN"]
+print("Fr Feminine:", fr_nouns["morph"].str.contains("Gender=Fem").sum())
+print("Fr Masculine:", fr_nouns["morph"].str.contains("Gender=Masc").sum())
+
+it_nouns = it[it["pos"] == "NOUN"]
+print("It Feminine:", it_nouns["morph"].str.contains("Gender=Fem").sum())
+print("It Masculine:", it_nouns["morph"].str.contains("Gender=Masc").sum())
+```

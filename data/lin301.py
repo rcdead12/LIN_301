@@ -75,9 +75,9 @@ def add_columns(df):
     df["is_ly"] = df["word"].str.endswith("ly")
     return df
 
-def book_to_spacy_df(filename, label, nlp):
+def book_to_spacy_df(filename, label, nlp, chapter_word="CHAPTER"):
     text = load_text(filename)
-    chapters = re.split(r"(?im)^CHAPTER\s+(?:[IVXLCDM]+|\d+)\b", text)
+    chapters = re.split(r"(?m)^" + chapter_word + r"\b.*$", text)
     chapters = chapters[1:]
     rows = []
     chapter_num = 0
@@ -92,6 +92,7 @@ def book_to_spacy_df(filename, label, nlp):
                     rows.append({"word": token.text.lower(),
                                  "lemma": token.lemma_.lower(),
                                  "pos": token.pos_,
+                                 "morph": str(token.morph),
                                  "is_stop": token.is_stop,
                                  "sentence": sentence_num,
                                  "chapter": chapter_num})
