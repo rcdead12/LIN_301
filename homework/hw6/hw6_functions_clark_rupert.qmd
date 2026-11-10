@@ -1,0 +1,158 @@
+## setup
+```{python}
+import sys
+sys.path.append("../../data")
+from lin301 import *
+
+import unicodedata
+import spacy
+nlp = spacy.load("en_core_web_sm")
+
+hi_df = pd.read_csv("hawaiian_words.csv")
+```
+
+
+## Part 1: Write Your Functions
+1.  **`is_vowel(letter)`** takes one letter, and returns `True` if it is a Hawaiian vowel (short or long), and `False` otherwise.
+```{python}
+is_vowel("a")
+is_vowel("ū")
+is_vowel("k")
+is_vowel("ʻ")
+```
+
+2.  **`cv_pattern(word)`** takes a word, and returns a string with `"C"` for every consonant and `"V"` for every vowel. It must use `is_vowel()`.
+```{python}
+cv_pattern("aloha")
+cv_pattern("ʻohana")
+```
+
+3.  **`syllabify(word)`** takes a word, and returns a **list** of its syllables. It must use `is_vowel()`. (Hint: in Hawaiian, a syllable always **ends** with a vowel.)
+```{python}
+syllabify("aloha")
+syllabify("kīlauea")
+```
+
+4.  **`count_syllables(word)`** takes a word, and returns how many syllables it has. It must use `syllabify()`.
+```{python}
+count_syllables("aloha")
+```
+
+
+## Part 2: Explore the Word List
+
+In your `.qmd`, import your functions from `lin301.py`, and read `hawaiian_words.csv` into a DataFrame. It has two columns, `word` and `meaning`.
+
+1.  Add three new columns, using your functions:
+    -   `cv`: the CV pattern of each word
+    -   `syllables`: the syllables of each word, joined with dots (*a.lo.ha*)
+    -   `n_syllables`: the number of syllables in each word
+```{python}
+hi_df["cv"] = [cv_pattern(w) for w in hi_df["word"]]
+
+hi_df["syllables"] = [".".join(syllabify(w)) for w in hi_df["word"]]
+
+hi_df["n_syllables"] = [count_syllables(w) for w in hi_df["word"]]
+```
+
+2.  What is the average number of syllables per word? Which word has the most?
+```{python}
+print("Average number of syllables per word:", hi_df["n_syllables"].mean())
+
+max_syllable_i = hi_df["n_syllables"].idxmax()   # stores index of row with the highest value in n_syllables
+print("Word with the most syllables:", hi_df.loc[max_syllable_i]["word"], "with", hi_df.loc[max_syllable_i]["n_syllables"], "syllable(s).")
+```
+
+3.  How many words have each number of syllables (2, 3, 4...)?
+```{python}
+hi_df.groupby("n_syllables").size()
+```
+
+4.  Use your `cv` column to check the claims above. Does any word have two consonants in a row? Does any word end in a consonant?
+```{python}
+two_c_words = []
+ends_c_words = []
+
+for w in hi_df["word"]:
+    cv_form = hi_df.loc[hi_df.index[hi_df["word"] == w]]["cv"]
+    is_c = False
+    for l in cv_form:
+        if l == "C" and is_c:    # checks if character is a consonant & previous character is to (stored in is_c)
+            two_c_words.append(w)
+        elif l == "C":  # if character is a consonant
+            is_c = True
+        else:
+            is_c = False
+    
+    for l in cv_form:
+        if l == "C" and cv_form.index(l) == [-1]:
+            ends_c_words.append(w)
+
+print("Words that have two consonants in a row:", two_c_words)
+print("Words that end in a consonant:", ends_c_words)
+```
+
+5.  Make a second DataFrame with **one row per syllable** (with columns for the syllable and the word it came from). What are the 10 most common syllables in the list?
+```{python}
+syllables_list = []
+
+for w in hi_df["word"]:
+    for s in syllabify(w):  # for each syllable (which is outputted as an item in the list created by `syllabify()`) in each word
+        syllables_list.append({"syllable": s, "word": w})
+
+syllable_df = pd.DataFrame(syllables_list)
+
+print("10 most common syllables in dataset:\n", syllable_df["syllable"].value_counts().head(10))
+```
+
+## Part 3: Try English
+```{python}
+en_vowels = ["a", "e", "i", "o", "u"]   # list of english vowels
+en_words = ["banana", "splash", "strengths"]
+
+for w in en_words:
+    print(
+        "word:", w, 
+        "-- cv pattern:", cv_pattern(w, en_vowels), 
+        "-- syllables:", syllabify(w, en_vowels)
+    )
+```
+
+-   The word "banana" is correctly parsed by the functions, but "splash" and "strengths" are not. What goes wrong is that the other words are have the coda consonants cut off because the `syllabify()` function parses syllables at consonants. It never goes wrong for Hawaiian because Hawaiian syllables never have codas. This tells us that English syllables have less restrictive structure, especially in its codas.
+
+## Challenge (Optional): Diphthongs {#challenge}
+```{python}
+def syllabify_diphthongs(word, vowels=hi_vowels, diphthongs=["ai", "ae", "ao", "au", "ei", "eu", "oi", "ou", "iu"]):    # default in Hawaiian, change vowels value for other languages, also: hi_vowels is defined in lin301.py
+    syllable = ""
+    result = []
+    previous = "" # stores previous letter
+
+    for i in word:
+        if is_vowel(i, vowels) and previous + i in diphthongs:
+            result[-1] += i
+            previous = i
+        elif is_vowel(i, vowels):
+            syllable += i
+            result.append(syllable) # adds string of syllable to result as list item
+            syllable = ""   # clears syllable string so it is ready for next syllable
+            previous = i
+        else:
+            syllable += i
+            previous = i
+    return result
+
+hi_syllables_diphthongs = [".".join(syllabify_diphthongs(w)) for w in hi_df["word"]]
+
+syllable_differences = []
+i = 0
+for w in hi_df["word"]:
+    if hi_df.loc[i]["syllables"] != hi_syllables_diphthongs[i]:
+        syllable_differences = [{
+            "word": w, 
+            "syllables": hi_df.loc[i]["syllables"], 
+            "syllables_diphthong": hi_syllables_diphthongs[i]
+        }]
+    i += 1
+
+print(syllable_differences)
+```

@@ -1,0 +1,327 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "## setup"
+      ],
+      "id": "401fbabc"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "import sys\n",
+        "sys.path.append(\"../../data\")\n",
+        "from lin301 import *\n",
+        "\n",
+        "import unicodedata\n",
+        "import spacy\n",
+        "nlp = spacy.load(\"en_core_web_sm\")\n",
+        "\n",
+        "hi_df = pd.read_csv(\"hawaiian_words.csv\")"
+      ],
+      "id": "102062c0",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "## Part 1: Write Your Functions\n",
+        "1.  **`is_vowel(letter)`** takes one letter, and returns `True` if it is a Hawaiian vowel (short or long), and `False` otherwise."
+      ],
+      "id": "63b5e82e"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "is_vowel(\"a\")\n",
+        "is_vowel(\"ū\")\n",
+        "is_vowel(\"k\")\n",
+        "is_vowel(\"ʻ\")"
+      ],
+      "id": "c62a916e",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "2.  **`cv_pattern(word)`** takes a word, and returns a string with `\"C\"` for every consonant and `\"V\"` for every vowel. It must use `is_vowel()`."
+      ],
+      "id": "ff18f086"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "cv_pattern(\"aloha\")\n",
+        "cv_pattern(\"ʻohana\")"
+      ],
+      "id": "5cbaab27",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "3.  **`syllabify(word)`** takes a word, and returns a **list** of its syllables. It must use `is_vowel()`. (Hint: in Hawaiian, a syllable always **ends** with a vowel.)"
+      ],
+      "id": "b8ea1879"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "syllabify(\"aloha\")\n",
+        "syllabify(\"kīlauea\")"
+      ],
+      "id": "24a77a91",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "4.  **`count_syllables(word)`** takes a word, and returns how many syllables it has. It must use `syllabify()`."
+      ],
+      "id": "39a434e7"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "count_syllables(\"aloha\")"
+      ],
+      "id": "2a55cbef",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "## Part 2: Explore the Word List\n",
+        "\n",
+        "In your `.qmd`, import your functions from `lin301.py`, and read `hawaiian_words.csv` into a DataFrame. It has two columns, `word` and `meaning`.\n",
+        "\n",
+        "1.  Add three new columns, using your functions:\n",
+        "    -   `cv`: the CV pattern of each word\n",
+        "    -   `syllables`: the syllables of each word, joined with dots (*a.lo.ha*)\n",
+        "    -   `n_syllables`: the number of syllables in each word"
+      ],
+      "id": "c3309916"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "hi_df[\"cv\"] = [cv_pattern(w) for w in hi_df[\"word\"]]\n",
+        "\n",
+        "hi_df[\"syllables\"] = [\".\".join(syllabify(w)) for w in hi_df[\"word\"]]\n",
+        "\n",
+        "hi_df[\"n_syllables\"] = [count_syllables(w) for w in hi_df[\"word\"]]"
+      ],
+      "id": "4420b0b2",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "2.  What is the average number of syllables per word? Which word has the most?"
+      ],
+      "id": "f3b91676"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "print(\"Average number of syllables per word:\", hi_df[\"n_syllables\"].mean())\n",
+        "\n",
+        "max_syllable_i = hi_df[\"n_syllables\"].idxmax()   # stores index of row with the highest value in n_syllables\n",
+        "print(\"Word with the most syllables:\", hi_df.loc[max_syllable_i][\"word\"], \"with\", hi_df.loc[max_syllable_i][\"n_syllables\"], \"syllable(s).\")"
+      ],
+      "id": "1a5507ba",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "3.  How many words have each number of syllables (2, 3, 4...)?"
+      ],
+      "id": "4f2be6ce"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "hi_df.groupby(\"n_syllables\").size()"
+      ],
+      "id": "224cc43e",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "4.  Use your `cv` column to check the claims above. Does any word have two consonants in a row? Does any word end in a consonant?"
+      ],
+      "id": "ed1b793a"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "two_c_words = []\n",
+        "ends_c_words = []\n",
+        "\n",
+        "for w in hi_df[\"word\"]:\n",
+        "    cv_form = hi_df.loc[hi_df.index[hi_df[\"word\"] == w]][\"cv\"]\n",
+        "    is_c = False\n",
+        "    for l in cv_form:\n",
+        "        if l == \"C\" and is_c:    # checks if character is a consonant & previous character is to (stored in is_c)\n",
+        "            two_c_words.append(w)\n",
+        "        elif l == \"C\":  # if character is a consonant\n",
+        "            is_c = True\n",
+        "        else:\n",
+        "            is_c = False\n",
+        "    \n",
+        "    for l in cv_form:\n",
+        "        if l == \"C\" and cv_form.index(l) == [-1]:\n",
+        "            ends_c_words.append(w)\n",
+        "\n",
+        "print(\"Words that have two consonants in a row:\", two_c_words)\n",
+        "print(\"Words that end in a consonant:\", ends_c_words)"
+      ],
+      "id": "40193e66",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "5.  Make a second DataFrame with **one row per syllable** (with columns for the syllable and the word it came from). What are the 10 most common syllables in the list?"
+      ],
+      "id": "c608257b"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "syllables_list = []\n",
+        "\n",
+        "for w in hi_df[\"word\"]:\n",
+        "    for s in syllabify(w):  # for each syllable (which is outputted as an item in the list created by `syllabify()`) in each word\n",
+        "        syllables_list.append({\"syllable\": s, \"word\": w})\n",
+        "\n",
+        "syllable_df = pd.DataFrame(syllables_list)\n",
+        "\n",
+        "print(\"10 most common syllables in dataset:\\n\", syllable_df[\"syllable\"].value_counts().head(10))"
+      ],
+      "id": "b7a5ec07",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "## Part 3: Try English"
+      ],
+      "id": "6cad1598"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "en_vowels = [\"a\", \"e\", \"i\", \"o\", \"u\"]   # list of english vowels\n",
+        "en_words = [\"banana\", \"splash\", \"strengths\"]\n",
+        "\n",
+        "for w in en_words:\n",
+        "    print(\n",
+        "        \"word:\", w, \n",
+        "        \"-- cv pattern:\", cv_pattern(w, en_vowels), \n",
+        "        \"-- syllables:\", syllabify(w, en_vowels)\n",
+        "    )"
+      ],
+      "id": "8b2cc7cc",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "-   The word \"banana\" is correctly parsed by the functions, but \"splash\" and \"strengths\" are not. What goes wrong is that the other words are have the coda consonants cut off because the `syllabify()` function parses syllables at consonants. It never goes wrong for Hawaiian because Hawaiian syllables never have codas. This tells us that English syllables have less restrictive structure, especially in its codas.\n",
+        "\n",
+        "## Challenge (Optional): Diphthongs {#challenge}"
+      ],
+      "id": "bb5e9153"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "def syllabify_diphthongs(word, vowels=hi_vowels, diphthongs=[\"ai\", \"ae\", \"ao\", \"au\", \"ei\", \"eu\", \"oi\", \"ou\", \"iu\"]):    # default in Hawaiian, change vowels value for other languages, also: hi_vowels is defined in lin301.py\n",
+        "    syllable = \"\"\n",
+        "    result = []\n",
+        "    previous = \"\" # stores previous letter\n",
+        "\n",
+        "    for i in word:\n",
+        "        if is_vowel(i, vowels) and previous + i in diphthongs:\n",
+        "            result[-1] += i\n",
+        "            previous = i\n",
+        "        elif is_vowel(i, vowels):\n",
+        "            syllable += i\n",
+        "            result.append(syllable) # adds string of syllable to result as list item\n",
+        "            syllable = \"\"   # clears syllable string so it is ready for next syllable\n",
+        "            previous = i\n",
+        "        else:\n",
+        "            syllable += i\n",
+        "            previous = i\n",
+        "    return result\n",
+        "\n",
+        "hi_syllables_diphthongs = [\".\".join(syllabify_diphthongs(w)) for w in hi_df[\"word\"]]\n",
+        "\n",
+        "syllable_differences = []\n",
+        "i = 0\n",
+        "for w in hi_df[\"word\"]:\n",
+        "    if hi_df.loc[i][\"syllables\"] != hi_syllables_diphthongs[i]:\n",
+        "        syllable_differences = [{\n",
+        "            \"word\": w, \n",
+        "            \"syllables\": hi_df.loc[i][\"syllables\"], \n",
+        "            \"syllables_diphthong\": hi_syllables_diphthongs[i]\n",
+        "        }]\n",
+        "    i += 1\n",
+        "\n",
+        "print(syllable_differences)"
+      ],
+      "id": "e8429c15",
+      "execution_count": null,
+      "outputs": []
+    }
+  ],
+  "metadata": {
+    "kernelspec": {
+      "name": "python3",
+      "language": "python",
+      "display_name": "Python 3 (ipykernel)",
+      "path": "/usr/share/jupyter/kernels/python3"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 5
+}
