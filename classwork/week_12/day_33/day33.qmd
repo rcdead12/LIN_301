@@ -1,0 +1,246 @@
+## Setup
+```{python}
+import sys
+sys.path.append("../../../data")
+from lin301 import *
+
+import unicodedata
+import spacy
+nlp_it = spacy.load("it_core_news_lg")
+```
+
+# Other Scripts
+## Unicode Knows the Script
+```{python}
+for c in "aγж猫はコ":
+    print(c, unicodedata.name(c))
+```
+
+## A Function: `script_of()`
+-   `.split()` breaks the name into words; `[0]` takes the first one.
+```{python}
+def script_of(char):
+    return unicodedata.name(char).split()[0]
+
+print(script_of("γ"), script_of("猫"), script_of("は"))
+```
+
+## Japanese Mixes Three Scripts
+```{python}
+ja = "猫はコウモリを食べるの？"   # 'Do cats eat bats?'
+
+rows = []
+for c in ja:
+    if c.isalpha():
+        rows.append({"char": c, "script": script_of(c)})
+
+pd.DataFrame(rows).groupby("script").size()
+```
+
+## Activity 1: Which Script?
+-   Each means 'The cat sleeps on the sofa.'
+1.  Count the letters in each script, for each sentence.
+2.  Which characters in the Japanese sentence are kanji? Hiragana? Katakana?
+```{python}
+el = "Η γάτα κοιμάται στον καναπέ."
+ru = "Кошка спит на диване."
+ja2 = "猫はソファで寝ます。"
+
+print(len(el), len(ru), len(ja2))
+
+for sentence in [el, ru, ja2]:
+    rows = []
+    for c in sentence:
+        if c.isalpha():
+            rows.append({"char": c, "script": script_of(c)})
+    print(pd.DataFrame(rows).groupby("script").size().to_dict())
+```
+
+# Where Are the Spaces?
+
+## Splitting on Spaces Fails
+
+```{python}
+zh = "猫吃蝙蝠吗？"       # 'Do cats eat bats?'
+print(zh.split())
+print(ja.split())
+```
+
+## spacy can segment
+```{python}
+# nlp_zh = spacy.load("zh_core_web_lg")
+# nlp_ja = spacy.load("ja_core_news_lg")
+nlp_el = spacy.load("el_core_news_lg")
+nlp_ru = spacy.load("ru_core_news_lg")
+```
+
+## Chinese
+```{python}
+for token in nlp_zh("猫吃蝙蝠吗？"):
+    print(token.text, token.lemma_, token.pos_)
+```
+
+## Japanese
+```{python}
+for token in nlp_ja("猫はコウモリを食べるの？"):
+    print(token.text, token.lemma_, token.pos_)
+```
+
+## Greek
+```{python}
+for token in nlp_el("Η γάτα τρώει τη νυχτερίδα;"):
+    print(token.text, token.lemma_, token.pos_)
+```
+
+## Russian
+```{python}
+for token in nlp_ru("Кошки едят летучих мышей?"):
+    print(token.text, token.lemma_, token.pos_)
+```
+
+## Russian Has Case
+-   `token.morph.get("Case")` pulls out just one feature.
+-   **Nominative** for the subject, **accusative** for the object: the endings tell you who eats whom, even if you change the word order!
+```{python}
+for token in nlp_ru("Кошки едят летучих мышей?"):
+    print(token.text, token.morph.get("Case"))
+```
+
+## Activity: Russian
+1.  Run `ru` (*Кошка спит на диване.*, from Activity 1) through `nlp_ru`. Print each token's text, lemma, and POS.
+2.  What case is *диване* in? 
+```python
+for token in nlp_ru(ru):
+    print(token.text, token.lemma_, token.pos_, token.morph.get("Case"))
+```
+
+## Activity 2: Segment and Tag
+1.  Run `el`, `ja2`, and `"猫在沙发上睡觉。"` (Chinese) through the right models.
+2.  Print each token's text, lemma, and POS.
+3.  How many words does spaCy find in the Chinese sentence? In the Japanese one?
+4.  What is the lemma of 寝 in Japanese? Of *καναπέ* in Greek?
+```python
+for model, sentence in [(nlp_el, el), (nlp_ja, ja2), (nlp_zh, "猫在沙发上睡觉。")]:
+    print([(t.text, t.lemma_, t.pos_) for t in model(sentence)])
+```
+# Romanization
+## The Quick Way: `unidecode`
+
+In the **terminal** (once):
+```bash
+python -m pip install unidecode pypinyin pykakasi
+```
+
+```python
+from unidecode import unidecode
+
+print(unidecode("Η γάτα τρώει τη νυχτερίδα;"))
+print(unidecode("猫吃蝙蝠吗？"))
+print(unidecode("猫はコウモリを食べるの？"))
+```
+
+## Chinese: `pypinyin`
+```python
+from pypinyin import pinyin
+
+syllables = pinyin("猫吃蝙蝠吗？")
+print(syllables)
+print(" ".join([s[0] for s in syllables]))
+```
+
+## Japanese: `pykakasi`
+```python
+import pykakasi
+
+kks = pykakasi.kakasi()
+result = kks.convert("猫はコウモリを食べるの？")
+print(" ".join([item["hepburn"] for item in result]))
+```
+
+## Activity 3: Romanize
+1.  Romanize `el`, `ja2`, and `"猫在沙发上睡觉。"` with `unidecode`.
+2.  Romanize the Chinese with `pypinyin`, and the Japanese with `pykakasi`.
+3.  Where does `unidecode` go wrong?
+```python
+for sentence in [el, ja2, "猫在沙发上睡觉。"]:
+    print(unidecode(sentence))
+
+print(" ".join([s[0] for s in pinyin("猫在沙发上睡觉。")]))
+print(" ".join([item["hepburn"] for item in kks.convert(ja2)]))
+```
+
+# WordNet in Other Languages
+## The Open Multilingual Wordnet
+-   Translators have linked words in many languages to WordNet's **English** synsets.
+-   In your notebook (once):
+```{python}
+import nltk
+nltk.download("omw-2.0")
+```
+
+```{python}
+print(sorted(wn.langs()))
+```
+
+## One Synset, Many Languages
+```{python}
+cat = wn.synset("cat.n.01")
+for lang in ["fra", "ita", "spa", "fin", "ell", "jpn", "cmn", "arb", "heb"]:
+    print(lang, cat.lemma_names(lang))
+```
+
+## Going the Other Way
+-   Look up a word **in** another language:
+```{python}
+wn.synsets("gatto", lang="ita")
+```
+
+## Updating `is_a()`: One More Parameter
+```{.python code-line-numbers="1,2"}
+def is_a(word, category, lang="eng"):
+    for synset in wn.synsets(word, pos=wn.NOUN, lang=lang):
+        for path in synset.hypernym_paths():
+            if category in path:
+                return True
+    return False
+```
+
+## Food in Italian *Alice*
+-   `.unique()` gives each lemma once.
+-   *minestra* 'soup', *burro* 'butter', *tè* 'tea', *uovo* 'egg', *vino* 'wine'... and *rosso* 'red'?
+```{python}
+it = book_to_spacy_df("alice_it.txt", "Italian", nlp_it, "CAPITOLO")
+it_nouns = it[it["pos"] == "NOUN"]
+
+food = wn.synset("food.n.01")
+lemmas = it_nouns["lemma"].unique()
+it_food = [lemma for lemma in lemmas if is_a(lemma, food, "ita")]
+print(sorted(it_food))
+```
+
+## Is Alice an Animal?
+```{python}
+animal = wn.synset("animal.n.01")
+it_animals = [lemma for lemma in lemmas if is_a(lemma, animal, "ita")]
+print("alice" in it_animals)
+print(wn.synsets("alice", lang="ita"))
+```
+
+## Activity 4: French *Alice*
+1.  Run `nlp_fr = spacy.load("fr_core_news_sm")` and then make `fr` with `book_to_spacy_df()` (remember `"CHAPITRE"`), and keep only the nouns.
+2.  Use `is_a()` with `lang="fra"` to find the food words.
+3.  Find three words in your list that aren't food. Which senses let them in?
+```{python}
+nlp_fr = spacy.load("fr_core_news_sm")
+fr = book_to_spacy_df("alice_fr.txt", "alice", nlp_fr, "CHAPITRE")
+
+fr_lemmas = fr[fr["pos"] == "NOUN"]["lemma"].unique()
+
+food = wn.synset("food.n.01")
+fr_food = [lemma for lemma in fr_lemmas if is_a(lemma, food, "fra")]
+
+print(sorted(fr_food))
+
+for lemma in fr_food:
+    print(wn.synsets(lemma, "fra"))
+```

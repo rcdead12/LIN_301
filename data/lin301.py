@@ -122,37 +122,9 @@ def book_to_svo_df(filename, label, nlp):
     df["text"] = label
     return df
 
-def is_a(word, category):
-    for synset in wn.synsets(word, pos=wn.NOUN):
+def is_a(word, category, lang="eng"):
+    for synset in wn.synsets(word, pos=wn.NOUN, lang=lang):
         for path in synset.hypernym_paths():
             if category in path:
                 return True
     return False
-
-# Hawaiian section
-hi_consonants = ["h", "k", "l", "m", "n", "p", "w", "ʻ"]
-hi_vowels = ["a", "e", "i", "o", "u", "ā", "ē", "ī", "ō", "ū"]
-
-def is_vowel(letter, vowels=hi_vowels):    # default in Hawaiian, change vowels value for other languages
-    return letter in hi_vowels
-
-def cv_pattern(word, vowels=hi_vowels):   # changes characters to C and V corresponding to consonants and vowels; default in Hawaiian, change vowels value for other languages
-    return "".join("V" if is_vowel(i, vowels) else "C" for i in word)
-
-def syllabify(word, vowels=hi_vowels):    # default in Hawaiian, change vowels value for other languages
-    syllable = ""
-    result = []
-    for i in word:
-        if is_vowel(i, vowels):
-            syllable += i
-            result.append(syllable)
-            syllable = ""
-        else:
-            syllable += i
-    return result
-
-def count_syllables(word, vowels=hi_vowels):
-    return len(syllabify(word, vowels))
-
-    
-
