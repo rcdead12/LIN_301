@@ -1,0 +1,110 @@
+## Setup
+```{python}
+import sys
+sys.path.append("../../data")
+from lin301 import *
+
+import unicodedata
+import spacy
+nlp_en = spacy.load("en_core_web_sm")
+nlp_el = spacy.load("el_core_news_lg")
+nlp_fi = spacy.load("fi_core_news_lg")
+```
+
+## Part 1: Build Your Tables
+Make one DataFrame per language with `book_to_spacy_df()`, with one chapter per **act**. Show that each table has exactly **5** acts, and give the number of words in each version.
+```{python}
+def book_to_spacy_df(filename, label, nlp, chapter_word="CHAPTER"):
+    text = load_text(filename)
+    chapters = re.split(r"(?m)^.*\b" + re.escape(chapter_word) + r"\b.*$", text)    # changed mask so that words could go in front of chapter word, since finnish puts numbers before nouns
+    chapters = chapters[1:]
+    rows = []
+    chapter_num = 0
+    for chapter in chapters:
+        chapter_num += 1
+        doc = nlp(chapter)
+        sentence_num = 0
+        for sent in doc.sents:
+            sentence_num += 1
+            for token in sent:
+                if token.is_alpha:
+                    rows.append({"word": token.text.lower(),
+                                 "lemma": token.lemma_.lower(),
+                                 "pos": token.pos_,
+                                 "morph": str(token.morph),
+                                 "is_stop": token.is_stop,
+                                 "sentence": sentence_num,
+                                 "chapter": chapter_num})
+    df = pd.DataFrame(rows)
+    df["text"] = label
+    return df
+
+
+en_df = book_to_spacy_df("macbeth_en.txt", "english", nlp_en, "ACT")
+print("5 acts of macbeth_en.txt:\n", en_df["chapter"].value_counts().sort_index())
+print("Number of words in macbeth_en.txt:", len(en_df))
+
+el_df = book_to_spacy_df("macbeth_el.txt", "greek", nlp_el, "ΠΡΑΞΙΣ")
+print("5 acts of macbeth_el.txt:\n", el_df["chapter"].value_counts().sort_index())
+print("Number of words in macbeth_el.txt:", len(el_df))
+
+fi_df = book_to_spacy_df("macbeth_fi.txt", "finnish", nlp_fi, "NÄYTÖS")
+print("5 acts of macbeth_fi.txt:\n", fi_df["chapter"].value_counts().sort_index())
+print("Number of words in macbeth_fi.txt:", len(fi_df))
+```
+
+## Part 2: Investigate
+**A. Parts of speech.** Choose three parts of speech. How many of each are there per 1,000 words in each version? Explain the biggest difference.
+-   By far, the biggest difference between these parts of speech for each version is determiners. Finnish has ZERO, 0.0, determiners per 1k words, English at 72.05, and Greek in the lead surprisingly far ahead with 152.9
+```{python}
+# english
+en_adp = en_df[en_df["pos"] == "ADP"]
+en_det = en_df[en_df["pos"] == "DET"]
+en_propn = en_df[en_df["pos"] == "PROPN"]
+print("Adpositions per 1000 words in macbeth_en.txt:", len(en_adp) / len(en_df) * 1000)
+print("Determiners per 1000 words in macbeth_en.txt:", len(en_det) / len(en_df) * 1000)
+print("Proper nouns per 1000 words in macbeth_en.txt:", len(en_propn) / len(en_df) * 1000)
+
+print("\n")
+
+# greek
+el_adp = el_df[el_df["pos"] == "ADP"]
+el_det = el_df[el_df["pos"] == "DET"]
+el_propn = el_df[el_df["pos"] == "PROPN"]
+print("Adpositions per 1000 words in macbeth_el.txt:", len(el_adp) / len(el_df) * 1000)
+print("Determiners per 1000 words in macbeth_el.txt:", len(el_det) / len(el_df) * 1000)
+print("Proper nouns per 1000 words in macbeth_el.txt:", len(el_propn) / len(el_df) * 1000)
+
+print("\n")
+
+# finnish
+fi_adp = fi_df[fi_df["pos"] == "ADP"]
+fi_det = fi_df[fi_df["pos"] == "DET"]
+fi_propn = fi_df[fi_df["pos"] == "PROPN"]
+print("Adpositions per 1000 words in macbeth_fi.txt:", len(fi_adp) / len(fi_df) * 1000)
+print("Determiners per 1000 words in macbeth_fi.txt:", len(fi_det) / len(fi_df) * 1000)
+print("Proper nouns per 1000 words in macbeth_fi.txt:", len(fi_propn) / len(fi_df) * 1000)
+```
+
+**D. Scripts.** For each version, count how many words begin with a character from each script (`LATIN`, `GREEK`...). Are there any words in an unexpected script? What are they, and how might they have got there?
+```{python}
+en_df["script"] = [unicodedata.name(w[0]).split()[0] for w in en_df["word"]]
+print("Scripts in macbeth_en.txt:", en_df["script"].value_counts().to_dict())
+
+el_df["script"] = [unicodedata.name(w[0]).split()[0] for w in el_df["word"]]
+print("Scripts in macbeth_el.txt:", el_df["script"].value_counts().to_dict())
+
+fi_df["script"] = [unicodedata.name(w[0]).split()[0] for w in fi_df["word"]]
+print("Scripts in macbeth_fi.txt:", fi_df["script"].value_counts().to_dict())
+
+print("\nInvestigating Latin character in macbeth_el.txt:")
+print(el_df.loc[el_df.index[el_df["script"] == "LATIN"]])
+```
+
+
+
+
+
+```{python}
+
+```
