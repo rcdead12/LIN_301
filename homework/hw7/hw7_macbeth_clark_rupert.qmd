@@ -99,12 +99,11 @@ print("Scripts in macbeth_fi.txt:", fi_df["script"].value_counts().to_dict())
 
 print("\nInvestigating Latin character in macbeth_el.txt:")
 print(el_df.loc[el_df.index[el_df["script"] == "LATIN"]])
+print("The most likely explanation for this greek word with a latin first character is that the letter epsilon in 'εγώ' was mistakenly replaced with the latin letter 'e'.")
 ```
 
+## Part 3: Reflection
 
+In a short paragraph: do your differences come from the **languages**, or might some come from the **translators**, the fact that this is a **play in verse**, or the **models**?
 
-
-
-```{python}
-
-```
+I think that the differences between the translations of Macbeth analyzed here are largely due to language. For example, the Finnish translation has NO DETERMINERS and very very few adpositions, likely because the language simply encodes this information into the word with affixes as it is an agglutinative language. The Greek translation, on the other hand, has over 2x the rate of determiners per 1000 words than English. This can be explained by the fact that Greek uses more determiners in general than English. However, Greek's lack of proper nouns is likely due to translator choice, as there is not a good explanation for this rooted in the structure of the language.
